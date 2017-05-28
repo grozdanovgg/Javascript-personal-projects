@@ -1,0 +1,56 @@
+<table id="main-table" class="table table-hover table-condensed table-responsive">
+    <thead>
+        <tr>
+            <td colspan="5">
+                <h4>
+                    Ichimoku cloud prediction score 
+                </h4>
+            </td>
+            <td id="indicator-performance">
+                <h4  class="text-center">
+                    <strong>
+                   {{indexPredictionPerformance}} 
+                    </strong>
+                </h4>
+            </td>
+        </tr>
+        <tr>
+            <th rowspan="1">Index</th>
+            <th colspan="2">Successful predictions</th>
+            <th colspan="2">Wrong predictions</th>
+            <th rowspan="1">Prediction score</th>
+        </tr>
+        <tr>
+            <td></td>
+            <td>count</td>
+            <td>average rate change</td>
+            <td>count</td>
+            <td>average rate change</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody class="table-body">
+        {{#each tickersResultArray}}
+        <tr>
+            <td>
+                {{ticker}}
+            </td>
+            <td>
+                {{successPredictions}}
+            </td>
+             <td>
+                {{succesAveragePriceVariaton}}%
+            </td>
+            <td>
+                {{wrongPredictions}}
+            </td>
+            <td>
+                {{wrongAveragePriceVariaton}}%
+            </td>
+            <td class="prediction-score">
+                {{predictionScore}}%
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

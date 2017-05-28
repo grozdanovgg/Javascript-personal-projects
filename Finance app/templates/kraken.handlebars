@@ -1,0 +1,58 @@
+<table id="main-table" class="table table-hover table-condensed table-responsive">
+    <thead>
+        <tr>
+            <td colspan="5">
+                <h4>
+                    Kraken potential profit analytics
+                </h4>
+            </td>
+            <td id="indicator-performance">
+                <h4  class="text-center">
+                    <strong>
+                   {{indexPredictionPerformance}} 
+                    </strong>
+                </h4>
+            </td>
+        </tr>
+        <tr>
+            <th rowspan="1">Pair</th>
+            <th colspan="1">Price</th>
+            <th colspan="1">Buy/Sell</th>
+            <th rowspan="1">Amount new currency</th>
+            <th rowspan="1">EST € value </th>
+            <th rowspan="1">Profit</th>
+        </tr>
+        <tr>
+            <td></td>
+            <td>count</td>
+            <td>average rate change</td>
+            <td>count</td>
+            <td>average rate change</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody class="table-body">
+        {{#each tickersResultArray}}
+        <tr>
+            <td>
+                {{ticker}}
+            </td>
+            <td>
+                {{successPredictions}}
+            </td>
+             <td>
+                {{succesAveragePriceVariaton}}%
+            </td>
+            <td>
+                {{wrongPredictions}}
+            </td>
+            <td>
+                {{wrongAveragePriceVariaton}}%
+            </td>
+            <td class="prediction-score">
+                {{predictionScore}}%
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

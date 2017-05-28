@@ -1,0 +1,24 @@
+<table class="table table-hover table-condensed table-responsive">
+    <thead>
+        <tr>
+            <th rowspan="2">Index</th>
+            <th colspan="2">Successful predictions</th>
+            <th colspan="2">Wrong predictions</th>
+        </tr>
+        <tr>
+            <th>count</th>
+            <th>average rate change</th>
+            <th>count</th>
+            <th>average rate change</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each this}}
+        <tr>
+            <td>
+                {{this}}
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
