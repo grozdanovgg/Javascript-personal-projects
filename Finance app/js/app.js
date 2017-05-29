@@ -3,6 +3,7 @@ import Navigo from 'navigo';
 import { homeController } from './controllers/home';
 import { krakenController } from './controllers/kraken';
 import { bittrexController } from './controllers/bittrex';
+import { yunbiController } from './controllers/yunbi';
 
 
 
@@ -18,6 +19,7 @@ router.on({
     'home': homeController,
     'kraken': krakenController,
     'bittrex': bittrexController,
+    'yunbi': yunbiController,
     // 'home/:sideBarContent': (params) => sideBarController.get(params),
     // 'chart/:sideBarContent': (params) => sideBarController.get(params),
     // 'table/:sideBarContent': (params) => sideBarController.get(params),

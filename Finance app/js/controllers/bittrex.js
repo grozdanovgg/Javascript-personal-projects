@@ -11,7 +11,7 @@ import { Data } from '../util/Data';
 import { Ticker } from '../util/Ticker';
 import { Pair } from '../util/Pair';
 import { CryptoJS as hmac_sha512 } from '../../node_modules/node.bittrex.api/hmac-sha512.js';
-import { Bittrex } from './bittrexData';
+import { Bittrex } from '../util/bittrexData';
 
 
 export function bittrexController() {

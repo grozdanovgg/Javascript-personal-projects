@@ -104,7 +104,6 @@ export class Bittrex {
     };
     static getbalances() {
         var op = apiCredentials(opts.baseUrl + '/account/getbalances');
-        console.log(op);
         return sendRequestCallback(op);
     };
     static getbalance(options) {
