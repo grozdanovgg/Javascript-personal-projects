@@ -26,6 +26,8 @@ export function krakenController() {
         .then(suggestAction)
 }
 
+
+
 function suggestAction(data) {
     console.log(data);
 

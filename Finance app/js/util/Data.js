@@ -32,14 +32,12 @@ export class Data {
 
     static getKrakenData(baseUrl, pairsArray) {
 
-
         let arrayToString = pairsArray.join(','),
             url = baseUrl;
 
         url += arrayToString;
 
         return Request.get(url)
-
 
     }
 
