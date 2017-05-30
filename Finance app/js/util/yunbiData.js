@@ -36,7 +36,11 @@ let start,
 export class Yunbi {
     static getDepth(pair, limit) {
         var op = request_options;
-        op.uri = opts.baseUrl + `/depth.json?market=${pair}&limit=${limit}`;
+        if (limit) {
+            op.uri = opts.baseUrl + `/depth.json?market=${pair}&limit=${limit}`;
+        } else {
+            op.uri = opts.baseUrl + `/depth.json?market=${pair}`;
+        }
         return sendRequestCallback(op);
     };
     // static sendCustomRequest(request_string, credentials) {

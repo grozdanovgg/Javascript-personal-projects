@@ -19,7 +19,7 @@ export function krakenController() {
 
     Data.getKrakenData("https://api.kraken.com/0/public/Ticker?pair=", pairsArray)
         .then(extractData)
-        // .then((data) => { console.log(data); return data; })
+        .then((data) => { console.log(data); return data; })
         .then(tickerGetEuroPrices)
         .then(tickerAddMathData)
         .then(findBiggestDiference)
@@ -43,9 +43,13 @@ function suggestAction(data) {
     // } else {
 
     let tempIndex = data.bestTicker.diference.maxBid.pair.slice(3) + data.bestTicker.diference.minAsk.pair.slice(3);
-    let tempIndexPrice = data.tickers[tempIndex.slice(0, 3)].prices[tempIndex].ask;
     console.log(tempIndex);
-    console.log(tempIndexPrice);
+    if (tempIndex.slice(0, 3) === tempIndex.slice(3)) {
+        throw Error("Miax Bid and Min Ask are from the same pair");
+    }
+    let tempIndexPrice = data.tickers[tempIndex.slice(0, 3)].prices[tempIndex].ask;
+    // console.log(tempIndex);
+    // console.log(tempIndexPrice);
     stepOne = `Buy ${data.bestTicker.diference.minAsk.pair.slice(0,3)} with ${data.bestTicker.diference.minAsk.pair.slice(3)} at ${data.bestTicker.diference.minAsk.price}`;
     stepTwo = `Sell ${data.bestTicker.diference.maxBid.pair.slice(0,3)} for ${data.bestTicker.diference.maxBid.pair.slice(3)} at ${data.bestTicker.diference.maxBid.price}`;
     stepThree = `Sell ${data.bestTicker.diference.maxBid.pair.slice(3)} for ${data.bestTicker.diference.minAsk.pair.slice(3)} at ${tempIndexPrice}`;
@@ -183,6 +187,7 @@ function extractData(data) {
         let ticker = new Pair(indexName, askPrice, bidPrice);
         resultArray.push(ticker);
     }
+    // console.log(resultArray);
     return resultArray;
 }
 
