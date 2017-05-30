@@ -34,12 +34,13 @@ export function yunbiController() {
     // let exchanges = Request.get("http://api.fixer.io/latest")
     //     .then(getEuroCnyExchangeRate);
 
-    Promise.all(promArray)
+    return Promise.all(promArray)
         .then(calculateRealAskBid)
 }
 
 function calculateRealAskBid(rawData) {
     let tickerArray = [];
+    let result = {};
     // console.log(rawData);
 
 
@@ -90,11 +91,13 @@ function calculateRealAskBid(rawData) {
             averageAskPrice = euroToSpend / askBoughtVolume;
             averageBidPrice = euroToSpend / bidSoldVolume;
         }
-
-        console.log({ name, asks, bids, asksEuro, bidsEuro, averageAskPrice, averageBidPrice });
+        result[name] = { name, asks, bids, asksEuro, bidsEuro, averageAskPrice, averageBidPrice };
+        // console.log({ name, asks, bids, asksEuro, bidsEuro, averageAskPrice, averageBidPrice });
         // console.log(averageAskPrice);
-        console.log('------------------');
+        // console.log('------------------');
     }
+    // console.log(result);
+    return result;
 
     // console.log(tickerArray);
 }

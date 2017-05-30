@@ -17,13 +17,14 @@ export function krakenController() {
 
     const pairsArray = ['ETHEUR', 'ETHXBT', 'ETCEUR', 'ETCXBT', 'ETCETH', 'REPEUR', 'REPXBT', 'REPETH', 'XBTEUR', 'ICNXBT', 'ICNETH'];
 
-    Data.getKrakenData("https://api.kraken.com/0/public/Ticker?pair=", pairsArray)
+    return Data.getKrakenData("https://api.kraken.com/0/public/Ticker?pair=", pairsArray)
         .then(extractData)
-        .then((data) => { console.log(data); return data; })
+        // .then((data) => { console.log(data); return data; })
         .then(tickerGetEuroPrices)
+        // .then((data) => { console.log(data); return data; })
         .then(tickerAddMathData)
         .then(findBiggestDiference)
-        .then(suggestAction)
+        // .then(suggestAction)
 }
 
 
@@ -58,6 +59,7 @@ function suggestAction(data) {
     console.log('Step 1: ' + stepOne);
     console.log('Step 2: ' + stepTwo);
     console.log('Step 3: ' + stepThree);
+    return { stepOne, stepTwo, stepThree }
     // console.log('Step 4: ' + stepFour);
     // }
 

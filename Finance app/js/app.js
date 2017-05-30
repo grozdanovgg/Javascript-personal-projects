@@ -1,9 +1,10 @@
 /*jshint esversion: 6 */
 import Navigo from 'navigo';
-import { homeController } from './controllers/home';
+import { ichimokuController } from './controllers/ichimokuController';
 import { krakenController } from './controllers/kraken';
 import { bittrexController } from './controllers/bittrex';
 import { yunbiController } from './controllers/yunbi';
+import { homeController } from './controllers/home';
 
 
 
@@ -17,6 +18,7 @@ router.on({
     '/': () => { router.navigate('home'); },
     '/#': () => { router.navigate('home'); },
     'home': homeController,
+    'ichimoku': ichimokuController,
     'kraken': krakenController,
     'bittrex': bittrexController,
     'yunbi': yunbiController,
