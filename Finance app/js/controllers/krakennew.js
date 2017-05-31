@@ -11,11 +11,10 @@ import { Data } from '../util/Data';
 import { Ticker } from '../util/Ticker';
 import { Pair } from '../util/Pair';
 import { CryptoJS as hmac_sha512 } from '../../node_modules/node.bittrex.api/hmac-sha512.js';
-import { Yunbi } from '../util/yunbiData';
+import { Kraken } from '../util/krakenData';
 
-let pairs = [{ "id": "btccny", "name": "BTC/CNY" }, { "id": "ethcny", "name": "ETH/CNY" }, { "id": "dgdcny", "name": "DGD/CNY" }, { "id": "btscny", "name": "BTS/CNY" }, { "id": "dcscny", "name": "DCS/CNY" }, { "id": "sccny", "name": "SC/CNY" }, { "id": "etccny", "name": "ETC/CNY" }, { "id": "1stcny", "name": "1SŦ/CNY" }, { "id": "repcny", "name": "REP/CNY" }, { "id": "anscny", "name": "ANS/CNY" }, { "id": "zeccny", "name": "ZEC/CNY" }, { "id": "zmccny", "name": "ZMC/CNY" }, { "id": "gntcny", "name": "GNT/CNY" }, { "id": "qtumcny", "name": "QTUM/CNY" }]
+let pairs = ['ETHEUR', 'ETHXBT', 'ETCEUR', 'ETCXBT', 'ETCETH', 'REPEUR', 'REPXBT', 'REPETH', 'XBTEUR', 'ICNXBT', 'ICNETH', 'XRPEUR', 'XRPXBT'];
 
-// var url = 'https://yunbi.com//api/v2/depth.json?market=btccny&limit=50';
 
 const euroToSpend = 2000;
 
@@ -23,41 +22,73 @@ let promArray = [],
     namesArray = [];
 
 pairs.forEach(pair => {
-    let name = pair.id;
-    let prom = Yunbi.getDepth(name, 500);
+    let prom = Kraken.getDepth(pair);
     promArray.push(prom);
-    namesArray.push(name);
+    namesArray.push(pair);
 });
-// cnyForEur = 7.64,
-// eurForCny = 0.1308;
 
 let exchangesPromise = Request.get("http://api.fixer.io/latest");
+let xbtPricePromise = Request.get("https://api.kraken.com/0/public/Ticker?pair=XBTEUR");
+let ethPricePromise = Request.get("https://api.kraken.com/0/public/Ticker?pair=ETHEUR");
+
 promArray.push(exchangesPromise);
+promArray.push(xbtPricePromise);
+promArray.push(ethPricePromise);
 
-export function yunbiController(euroToSpend) {
-
+export function krakenController(euroToSpend) {
     return Promise.all(promArray)
         .then(calculateRealAskBid)
 }
 
+
+
 function calculateRealAskBid(rawData) {
+    // console.log(rawData);
+    //Remove X and Z drom rowData names
+    for (let i = 0; i < rawData.length - 3; i += 1) {
+        let obj = rawData[i];
+        let nameRaw = Object.keys(obj.result)[0];
+        let indexDataObj = rawData[i].result[nameRaw];
+        let mainIndex = nameRaw.slice(1, 4);
+        let secondIndex = nameRaw.slice(5);
+        let name = mainIndex + secondIndex;
+        rawData[i].result[name] = indexDataObj;
+        delete rawData[i].result[nameRaw];
+    }
+
+    let convertionCoeff = 1;
     let tickerArray = [];
     let result = {};
-    let exchangePromise = rawData[rawData.length - 1];
+    let exchangePromise = rawData[rawData.length - 3];
+    let xbtPricePromise = rawData[rawData.length - 2];
+    let ethPricePromise = rawData[rawData.length - 1];
 
-    let exchangeData = getEuroCnyExchangeRate(exchangePromise);
-    let cnyForEur = +exchangeData.cnyForEur;
-    let eurForCny = +exchangeData.eurForCny;
+    let exchangeData = getEuroTHBExchangeRate(exchangePromise);
+    let thbForEur = exchangeData.thbForEur;
+    let eurForThb = exchangeData.eurForThb;
+    let eurForXbt = +xbtPricePromise.result.XXBTZEUR.a[0];
+    let eurForEth = +ethPricePromise.result.XETHZEUR.a[0];
 
-
-    for (let i = 0; i < rawData.length - 1; i += 1) {
-        let asks = rawData[i].asks.reverse();
-        let bids = rawData[i].bids;
+    // console.log(namesArray);
+    for (let i = 0; i < rawData.length - 3; i += 1) {
+        let objData = rawData[i];
+        // console.log(objData);
+        let nameRaw = Object.keys(objData.result)[0];
+        let asks = objData.result[nameRaw].asks;
+        let bids = objData.result[nameRaw].bids;
         let name = namesArray[i].toUpperCase();
+        // console.log(name);
 
-        // console.log(eurForCny);
-        let asksEuro = asks.map(x => { return { price: (x[0] * eurForCny), volume: x[1], positionPrice: (x[0] * eurForCny * x[1]) } });
-        let bidsEuro = bids.map(x => { return { price: (x[0] * eurForCny), volume: x[1], positionPrice: (x[0] * eurForCny * x[1]) } });
+        if (name.slice(3) === 'EUR') {
+            convertionCoeff = 1;
+        } else if (name.slice(3) === 'ETH') {
+            convertionCoeff = eurForEth;
+        } else {
+            convertionCoeff = eurForXbt;
+        }
+
+        let asksEuro = asks.map(x => { return { price: (x[0] * convertionCoeff), volume: x[1], positionPrice: (x[0] * convertionCoeff * x[1]) } });
+        let bidsEuro = bids.map(x => { return { price: (x[0] * convertionCoeff), volume: x[1], positionPrice: (x[0] * convertionCoeff * x[1]) } });
         let arrLength = 0;
 
         if (asksEuro.length < bidsEuro.length) {
@@ -98,10 +129,10 @@ function calculateRealAskBid(rawData) {
             averageAskPrice = euroToSpend / askBoughtVolume;
             averageBidPrice = euroToSpend / bidSoldVolume;
         }
+
         if (!result[name.slice(0, 3)]) {
             result[name.slice(0, 3)] = {};
         }
-
         result[name.slice(0, 3)][name] = { name, asks, bids, asksEuro, bidsEuro, averageAskPrice, averageBidPrice };
         // console.log({ name, asks, bids, asksEuro, bidsEuro, averageAskPrice, averageBidPrice });
         // console.log(averageAskPrice);
@@ -109,11 +140,7 @@ function calculateRealAskBid(rawData) {
     }
     // console.log(result);
     return result;
-
-    // console.log(tickerArray);
 }
-
-
 
 
 
@@ -122,8 +149,8 @@ function getPairsDepth(promArray) {
     return Promise.all(promArray)
 }
 
-function getEuroCnyExchangeRate(data) {
-    let cnyForEur = data.rates.CNY;
-    let eurForCny = 1 / cnyForEur;
-    return { cnyForEur, eurForCny }
+function getEuroTHBExchangeRate(data) {
+    let thbForEur = data.rates.THB;
+    let eurForThb = 1 / thbForEur;
+    return { thbForEur, eurForThb }
 }

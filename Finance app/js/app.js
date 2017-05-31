@@ -5,6 +5,7 @@ import { krakenController } from './controllers/kraken';
 import { bittrexController } from './controllers/bittrex';
 import { yunbiController } from './controllers/yunbi';
 import { homeController } from './controllers/home';
+import { bxinController } from './controllers/bxin';
 
 
 
@@ -22,6 +23,7 @@ router.on({
     'kraken': krakenController,
     'bittrex': bittrexController,
     'yunbi': yunbiController,
+    'bxin': bxinController,
     // 'home/:sideBarContent': (params) => sideBarController.get(params),
     // 'chart/:sideBarContent': (params) => sideBarController.get(params),
     // 'table/:sideBarContent': (params) => sideBarController.get(params),

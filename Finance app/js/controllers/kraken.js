@@ -15,7 +15,7 @@ export function krakenController() {
 
     const sellAmmountEuro = 100;
 
-    const pairsArray = ['ETHEUR', 'ETHXBT', 'ETCEUR', 'ETCXBT', 'ETCETH', 'REPEUR', 'REPXBT', 'REPETH', 'XBTEUR', 'ICNXBT', 'ICNETH'];
+    const pairsArray = ['ETHEUR', 'ETHXBT', 'ETCEUR', 'ETCXBT', 'ETCETH', 'REPEUR', 'REPXBT', 'REPETH', 'XBTEUR', 'ICNXBT', 'ICNETH', 'XRPEUR', 'XRPXBT'];
 
     return Data.getKrakenData("https://api.kraken.com/0/public/Ticker?pair=", pairsArray)
         .then(extractData)
