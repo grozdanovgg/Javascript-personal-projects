@@ -84,9 +84,11 @@ export function homeController() {
                 // console.log(krakenData[ticker][ticker + 'EUR']);
                 // console.log(yunbiData[ticker][ticker + 'CNY']);
                 // console.log('----------');]
+
+                console.log(`----------------------------${ticker} arbitrage:`);
                 if (yunbiData[ticker] && krakenData[ticker]) {
                     if (krakenData[ticker][ticker + 'EUR'] && yunbiData[ticker][ticker + 'CNY']) {
-                        console.log('Yunbi arbitrage:');
+
                         let result = {
                             [ticker]: {
                                 askKraken: krakenData[ticker][ticker + 'EUR'].averageAskPrice,
@@ -98,13 +100,17 @@ export function homeController() {
                             }
                         }
 
+                        console.log(`                      Yunbi/Kraken is ${result[ticker].percentage.toFixed(2)}%`);
                         console.log(result);
-
                     }
                 };
+                // console.log(ticker);
+                // console.log(bxinData[ticker]);
+                // console.log(krakenData[ticker]);
+                // console.log(bxinData);
+                // console.log(krakenData);
                 if (bxinData[ticker] && krakenData[ticker]) {
                     if (krakenData[ticker][ticker + 'EUR'] && bxinData[ticker][ticker + 'THB']) {
-                        console.log('Bx.in arbitrage:');
                         let result = {
                             [ticker]: {
                                 askKraken: krakenData[ticker][ticker + 'EUR'].averageAskPrice,
@@ -116,6 +122,7 @@ export function homeController() {
                             }
                         }
 
+                        console.log(`                      Bx.in/Kraken is ${result[ticker].percentage.toFixed(2)}%`);
                         console.log(result);
                     }
                 }

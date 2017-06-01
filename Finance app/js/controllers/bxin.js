@@ -110,6 +110,14 @@ function calculateRealAskBid(rawData) {
             averageBidPrice = euroToSpend / bidSoldVolume;
         }
 
+        if (name.slice(0, 3) === 'BTC') {
+            name = 'XBT' + name.slice(3);
+        }
+        if (name.slice(3) === 'BTC') {
+            name = name.slice(0, 3) + 'XBT';
+        }
+
+
         if (!result[name.slice(0, 3)]) {
             result[name.slice(0, 3)] = {};
         }
