@@ -30,17 +30,29 @@ export function homeController() {
                 bxinTickers = [],
                 yunbiCommonTickers = [],
                 bxinCmmonTickers = [];
-            console.log(krakenData);
-            console.log(yunbiData);
-            console.log(bxinData);
+            // console.log('Kraken:');
+            // console.log(krakenData);
+            // console.log('Yunbi:');
+            // console.log(yunbiData);
+            // console.log('bx.in:');
+            // console.log(bxinData);
 
-            for (let i in krakenData) {
-                let ticker = krakenData[i];
-                // console.log(ticker);
-                krakenTickers.push(ticker.name);
-            }
+            krakenTickers = Object.keys(krakenData);
+            yunbiTickers = Object.keys(yunbiData);
+            bxinTickers = Object.keys(bxinData);
+
+            // for (let i in krakenData) {
+            //     let ticker = krakenData[i];
+            //     // console.log(ticker);
+            //     // krakenTickers.push(ticker.name);
+            // }
 
             for (let ticker in yunbiData) {
+                // let key = Object.keys(yunbiData)[ticker];
+                // console.log(key);
+                // console.log(yunbiData);
+                // console.log(ticker);
+                // console.log(yunbiData[ticker]);
                 if (yunbiData[ticker].name === 'BTCCNY') {
                     yunbiData[ticker].name = 'XBTCNY';
                 }
@@ -60,57 +72,54 @@ export function homeController() {
                 if (ticker.name === 'ETHBTC') {
                     ticker.name = 'ETHXBT';
                 }
-                // bxinTickers.push(ticker.name);
-                // // // console.log(bxinData[bxinData[ticker].name.slice(0, 3)]);
-                // let tickerName = ticker.name.slice(0, 3);
-                // // console.log(tickerName);
-                // if (bxinData[tickerName]) {
-                //     bxinData[tickerName][ticker.name] = ticker;
-                //     delete bxinData[i];
-                // } else {
-                //     bxinData[tickerName] = {};
-                //     bxinData[tickerName][ticker.name] = ticker;
-                //     delete bxinData[i];
-                // }
-
-
             }
-
             yunbiCommonTickers = diff(yunbiTickers, krakenTickers);
             bxinCmmonTickers = diff(bxinTickers, krakenTickers);
-            console.log(yunbiCommonTickers);
-            console.log(bxinCmmonTickers);
-            // console.log(bxinTickers);
-            // console.log(commonTickers);
-            // console.log(krakenData);
+
+            //To fix only EURO price get....
             // console.log(yunbiData);
+            // console.log(bxinData);
+            krakenTickers.forEach((ticker) => {
+                // console.log(ticker);
+                // console.log(krakenData[ticker][ticker + 'EUR']);
+                // console.log(yunbiData[ticker][ticker + 'CNY']);
+                // console.log('----------');]
+                if (yunbiData[ticker] && krakenData[ticker]) {
+                    if (krakenData[ticker][ticker + 'EUR'] && yunbiData[ticker][ticker + 'CNY']) {
+                        console.log('Yunbi arbitrage:');
+                        let result = {
+                            [ticker]: {
+                                askKraken: krakenData[ticker][ticker + 'EUR'].averageAskPrice,
+                                askYunbi: yunbiData[ticker][ticker + 'CNY'].averageAskPrice,
+                                bidKraken: krakenData[ticker][ticker + 'EUR'].averageBidPrice,
+                                bidYunbi: yunbiData[ticker][ticker + 'CNY'].averageBidPrice,
+                                diference: yunbiData[ticker][ticker + 'CNY'].averageBidPrice - krakenData[ticker][ticker + 'EUR'].averageAskPrice,
+                                percentage: (yunbiData[ticker][ticker + 'CNY'].averageBidPrice / krakenData[ticker][ticker + 'EUR'].averageAskPrice - 1) * 100
+                            }
+                        }
 
-            yunbiCommonTickers.forEach((ticker) => {
-                console.log(ticker);
-                let tick = {
-                    ticker,
-                    askKraken: krakenData[ticker].diference.minAsk.priceEUR,
-                    askYunbi: yunbiData[ticker].averageAskPrice,
-                    bidKraken: krakenData[ticker].diference.maxBid.priceEUR,
-                    bidYunbi: yunbiData[ticker].averageBidPrice,
-                    diference: { yunbi: yunbiData[ticker].averageBidPrice - krakenData[ticker].diference.minAsk.priceEUR, bxin: bxinData[ticker].averageBidPrice - krakenData[ticker].diference.minAsk.priceEUR },
-                    percentage: { yunbi: (yunbiData[ticker].averageBidPrice / krakenData[ticker].diference.minAsk.priceEUR - 1) * 100, bxin: (bxinData[ticker].averageBidPrice / krakenData[ticker].diference.minAsk.priceEUR - 1) * 100 }
+                        console.log(result);
+
+                    }
+                };
+                if (bxinData[ticker] && krakenData[ticker]) {
+                    if (krakenData[ticker][ticker + 'EUR'] && bxinData[ticker][ticker + 'THB']) {
+                        console.log('Bx.in arbitrage:');
+                        let result = {
+                            [ticker]: {
+                                askKraken: krakenData[ticker][ticker + 'EUR'].averageAskPrice,
+                                askBxin: bxinData[ticker][ticker + 'THB'].averageAskPrice,
+                                bidKraken: krakenData[ticker][ticker + 'EUR'].averageBidPrice,
+                                bidBxin: bxinData[ticker][ticker + 'THB'].averageBidPrice,
+                                diference: bxinData[ticker][ticker + 'THB'].averageBidPrice - krakenData[ticker][ticker + 'EUR'].averageAskPrice,
+                                percentage: (bxinData[ticker][ticker + 'THB'].averageBidPrice / krakenData[ticker][ticker + 'EUR'].averageAskPrice - 1) * 100
+                            }
+                        }
+
+                        console.log(result);
+                    }
                 }
-
-                console.log(tick);
-
-                // console.log(krakenData[ticker]);
-                // console.log(yunbiData[ticker]);
                 console.log('----------');
-
             })
-
-
         })
-
-
-
-
-
-
 }
