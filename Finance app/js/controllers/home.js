@@ -29,7 +29,9 @@ export function homeController() {
                 yunbiTickers = [],
                 bxinTickers = [],
                 yunbiCommonTickers = [],
-                bxinCmmonTickers = [];
+                bxinCmmonTickers = [],
+                yunbiArbitrage = {},
+                bxInArbitrage = {};
             // console.log('Kraken:');
             // console.log(krakenData);
             // console.log('Yunbi:');
@@ -79,29 +81,32 @@ export function homeController() {
             //To fix only EURO price get....
             // console.log(yunbiData);
             // console.log(bxinData);
+
+
+
             krakenTickers.forEach((ticker) => {
                 // console.log(ticker);
                 // console.log(krakenData[ticker][ticker + 'EUR']);
                 // console.log(yunbiData[ticker][ticker + 'CNY']);
                 // console.log('----------');]
 
-                console.log(`----------------------------${ticker} arbitrage:`);
+                // console.log(`----------------------------${ticker} arbitrage:`);
                 if (yunbiData[ticker] && krakenData[ticker]) {
                     if (krakenData[ticker][ticker + 'EUR'] && yunbiData[ticker][ticker + 'CNY']) {
 
-                        let result = {
-                            [ticker]: {
-                                askKraken: krakenData[ticker][ticker + 'EUR'].averageAskPrice,
-                                askYunbi: yunbiData[ticker][ticker + 'CNY'].averageAskPrice,
-                                bidKraken: krakenData[ticker][ticker + 'EUR'].averageBidPrice,
-                                bidYunbi: yunbiData[ticker][ticker + 'CNY'].averageBidPrice,
-                                diference: yunbiData[ticker][ticker + 'CNY'].averageBidPrice - krakenData[ticker][ticker + 'EUR'].averageAskPrice,
-                                percentage: (yunbiData[ticker][ticker + 'CNY'].averageBidPrice / krakenData[ticker][ticker + 'EUR'].averageAskPrice - 1) * 100
-                            }
+                        yunbiArbitrage[ticker] = {
+                            askKraken: krakenData[ticker][ticker + 'EUR'].averageAskPrice,
+                            askYunbi: yunbiData[ticker][ticker + 'CNY'].averageAskPrice,
+                            bidKraken: krakenData[ticker][ticker + 'EUR'].averageBidPrice,
+                            bidYunbi: yunbiData[ticker][ticker + 'CNY'].averageBidPrice,
+                            diference: yunbiData[ticker][ticker + 'CNY'].averageBidPrice - krakenData[ticker][ticker + 'EUR'].averageAskPrice,
+                            percentage: (yunbiData[ticker][ticker + 'CNY'].averageBidPrice / krakenData[ticker][ticker + 'EUR'].averageAskPrice - 1) * 100
                         }
 
-                        console.log(`                      Yunbi/Kraken is ${result[ticker].percentage.toFixed(2)}%`);
-                        console.log(result);
+
+
+                        // console.log(`                      Yunbi/Kraken is ${yunbiArbitrage[ticker].percentage.toFixed(2)}%`);
+                        // console.log(yunbiArbitrage);
                     }
                 };
                 // console.log(ticker);
@@ -111,22 +116,37 @@ export function homeController() {
                 // console.log(krakenData);
                 if (bxinData[ticker] && krakenData[ticker]) {
                     if (krakenData[ticker][ticker + 'EUR'] && bxinData[ticker][ticker + 'THB']) {
-                        let result = {
-                            [ticker]: {
-                                askKraken: krakenData[ticker][ticker + 'EUR'].averageAskPrice,
-                                askBxin: bxinData[ticker][ticker + 'THB'].averageAskPrice,
-                                bidKraken: krakenData[ticker][ticker + 'EUR'].averageBidPrice,
-                                bidBxin: bxinData[ticker][ticker + 'THB'].averageBidPrice,
-                                diference: bxinData[ticker][ticker + 'THB'].averageBidPrice - krakenData[ticker][ticker + 'EUR'].averageAskPrice,
-                                percentage: (bxinData[ticker][ticker + 'THB'].averageBidPrice / krakenData[ticker][ticker + 'EUR'].averageAskPrice - 1) * 100
-                            }
+                        bxInArbitrage[ticker] = {
+                            askKraken: krakenData[ticker][ticker + 'EUR'].averageAskPrice,
+                            askBxin: bxinData[ticker][ticker + 'THB'].averageAskPrice,
+                            bidKraken: krakenData[ticker][ticker + 'EUR'].averageBidPrice,
+                            bidBxin: bxinData[ticker][ticker + 'THB'].averageBidPrice,
+                            diference: bxinData[ticker][ticker + 'THB'].averageBidPrice - krakenData[ticker][ticker + 'EUR'].averageAskPrice,
+                            percentage: (bxinData[ticker][ticker + 'THB'].averageBidPrice / krakenData[ticker][ticker + 'EUR'].averageAskPrice - 1) * 100
                         }
 
-                        console.log(`                      Bx.in/Kraken is ${result[ticker].percentage.toFixed(2)}%`);
-                        console.log(result);
+
+                        // console.log(`                      Bx.in/Kraken is ${bxInArbitrage[ticker].percentage.toFixed(2)}%`);
+                        // console.log(bxInArbitrage);
                     }
                 }
-                console.log('----------');
             })
+            console.log('------------Yunbi arbitrage:------------');
+            for (let i in yunbiArbitrage) {
+                let percent = yunbiArbitrage[i].percentage;
+                console.log(`------------${i} is ${percent.toFixed(2)}%`);
+            }
+            console.log(yunbiArbitrage);
+
+            console.log('********************************************');
+            console.log('------------Bx.in.th arbitrage:------------');
+            for (let i in bxInArbitrage) {
+                let percent = bxInArbitrage[i].percentage;
+                console.log(`------------${i} is ${percent.toFixed(2)}%`);
+            }
+            console.log(bxInArbitrage);
+            console.log('********************************************');
+
+
         })
 }
