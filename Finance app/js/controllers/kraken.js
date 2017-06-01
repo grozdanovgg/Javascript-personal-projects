@@ -16,15 +16,17 @@ export function krakenController() {
     const sellAmmountEuro = 100;
 
     const pairsArray = ['ETHEUR', 'ETHXBT', 'ETCEUR', 'ETCXBT', 'ETCETH', 'REPEUR', 'REPXBT', 'REPETH', 'XBTEUR', 'ICNXBT', 'ICNETH', 'XRPEUR', 'XRPXBT'];
-
-    return Data.getKrakenData("https://api.kraken.com/0/public/Ticker?pair=", pairsArray)
+    let result = Data.getKrakenData("https://api.kraken.com/0/public/Ticker?pair=", pairsArray)
         .then(extractData)
         // .then((data) => { console.log(data); return data; })
         .then(tickerGetEuroPrices)
         // .then((data) => { console.log(data); return data; })
         .then(tickerAddMathData)
-        .then(findBiggestDiference)
-        // .then(suggestAction)
+        .then(findBiggestDiference);
+    // .then(suggestAction)
+
+    // console.log(result);
+    return result;
 }
 
 

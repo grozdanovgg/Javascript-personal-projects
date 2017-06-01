@@ -33,6 +33,15 @@ let start,
     };
 
 export class Bittrex {
+    static getDepth(pair, limit) {
+        var op = request_options;
+        if (limit) {
+            op.uri = opts.baseUrl + `/public/getorderbook?market=${pair}&type=both&depth=${limit}`;
+        } else {
+            op.uri = opts.baseUrl + `/public/getorderbook?market=${pair}&type=both`;
+        }
+        return sendRequestCallback(op);
+    };
 
     static sendCustomRequest(request_string, credentials) {
         var op;

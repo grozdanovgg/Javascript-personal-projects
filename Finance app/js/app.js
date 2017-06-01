@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 import Navigo from 'navigo';
 import { ichimokuController } from './controllers/ichimokuController';
-import { krakenController } from './controllers/kraken';
+import { krakenController } from './controllers/krakennew';
 import { bittrexController } from './controllers/bittrex';
 import { yunbiController } from './controllers/yunbi';
 import { homeController } from './controllers/home';

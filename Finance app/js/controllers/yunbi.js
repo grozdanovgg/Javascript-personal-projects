@@ -13,7 +13,7 @@ import { Pair } from '../util/Pair';
 import { CryptoJS as hmac_sha512 } from '../../node_modules/node.bittrex.api/hmac-sha512.js';
 import { Yunbi } from '../util/yunbiData';
 
-let pairs = [{ "id": "btccny", "name": "BTC/CNY" }, { "id": "ethcny", "name": "ETH/CNY" }, { "id": "dgdcny", "name": "DGD/CNY" }, { "id": "btscny", "name": "BTS/CNY" }, { "id": "dcscny", "name": "DCS/CNY" }, { "id": "sccny", "name": "SC/CNY" }, { "id": "etccny", "name": "ETC/CNY" }, { "id": "1stcny", "name": "1SŦ/CNY" }, { "id": "repcny", "name": "REP/CNY" }, { "id": "anscny", "name": "ANS/CNY" }, { "id": "zeccny", "name": "ZEC/CNY" }, { "id": "zmccny", "name": "ZMC/CNY" }, { "id": "gntcny", "name": "GNT/CNY" }, { "id": "qtumcny", "name": "QTUM/CNY" }]
+let pairs = [{ "id": "btccny", "name": "BTC/CNY" }, { "id": "ethcny", "name": "ETH/CNY" }, { "id": "dgdcny", "name": "DGD/CNY" }, { "id": "etccny", "name": "ETC/CNY" }, { "id": "repcny", "name": "REP/CNY" }]
 
 // var url = 'https://yunbi.com//api/v2/depth.json?market=btccny&limit=50';
 

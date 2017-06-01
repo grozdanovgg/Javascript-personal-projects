@@ -34,6 +34,7 @@ let ethPricePromise = Request.get("https://api.kraken.com/0/public/Ticker?pair=E
 promArray.push(exchangesPromise);
 promArray.push(xbtPricePromise);
 promArray.push(ethPricePromise);
+// console.log(promArray);
 
 export function krakenController(euroToSpend) {
     return Promise.all(promArray)
@@ -63,9 +64,9 @@ function calculateRealAskBid(rawData) {
     let xbtPricePromise = rawData[rawData.length - 2];
     let ethPricePromise = rawData[rawData.length - 1];
 
-    let exchangeData = getEuroTHBExchangeRate(exchangePromise);
-    let thbForEur = exchangeData.thbForEur;
-    let eurForThb = exchangeData.eurForThb;
+    // let exchangeData = getEuroTHBExchangeRate(exchangePromise);
+    // let thbForEur = exchangeData.thbForEur;
+    // let eurForThb = exchangeData.eurForThb;
     let eurForXbt = +xbtPricePromise.result.XXBTZEUR.a[0];
     let eurForEth = +ethPricePromise.result.XETHZEUR.a[0];
 
@@ -149,8 +150,8 @@ function getPairsDepth(promArray) {
     return Promise.all(promArray)
 }
 
-function getEuroTHBExchangeRate(data) {
-    let thbForEur = data.rates.THB;
-    let eurForThb = 1 / thbForEur;
-    return { thbForEur, eurForThb }
-}
+// function getEuroTHBExchangeRate(data) {
+//     let thbForEur = data.rates.THB;
+//     let eurForThb = 1 / thbForEur;
+//     return { thbForEur, eurForThb }
+// }

@@ -67,9 +67,11 @@ function calculateRealAskBid(rawData) {
         } else {
             convertionCoeff = eurForXbt;
         }
+        // console.log(asks);
         let asksEuro = asks.map(x => { return { price: (x[0] * convertionCoeff), volume: x[1], positionPrice: (x[0] * convertionCoeff * x[1]) } });
         let bidsEuro = bids.map(x => { return { price: (x[0] * convertionCoeff), volume: x[1], positionPrice: (x[0] * convertionCoeff * x[1]) } });
         let arrLength = 0;
+        // console.log(asksEuro);
 
         if (asksEuro.length < bidsEuro.length) {
             arrLength = asksEuro.length;
