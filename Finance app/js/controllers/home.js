@@ -93,20 +93,38 @@ export function homeController() {
 
             //Kraken arbitrage analitycs
             //To fix only EURO price get....
+             
             krakenTickers.forEach((ticker) => {
-                if (yunbiData[ticker] && krakenData[ticker]) {
-                    if (krakenData[ticker][ticker + 'EUR'] && yunbiData[ticker][ticker + 'CNY']) {
 
+                
+
+                if (yunbiData[ticker] && krakenData[ticker]) {
+                    console.log(yunbiData[ticker]);
+                    console.log(krakenData[ticker]);
+                    console.log(ticker)
+                    
+                    
+                    if( ticker === 'ETH'){
                         yunbiArbitrageKraken[ticker] = {
                             askKraken: krakenData[ticker][ticker + 'EUR'].averageAskPrice,
                             askYunbi: yunbiData[ticker][ticker + 'CNY'].averageAskPrice,
                             bidKraken: krakenData[ticker][ticker + 'EUR'].averageBidPrice,
                             bidYunbi: yunbiData[ticker][ticker + 'CNY'].averageBidPrice,
-                            diference: yunbiData[ticker][ticker + 'CNY'].averageBidPrice - krakenData[ticker][ticker + 'EUR'].averageAskPrice,
-                            percentage: (yunbiData[ticker][ticker + 'CNY'].averageBidPrice / krakenData[ticker][ticker + 'EUR'].averageAskPrice - 1) * 100
+                            diference: yunbiData[ticker][ticker + 'CNY'].averageAskPrice - krakenData[ticker][ticker + 'EUR'].averageBidPrice,
+                            percentage: (yunbiData[ticker][ticker + 'CNY'].averageAskPrice / krakenData[ticker][ticker + 'EUR'].averageBidPrice - 1) * 100
+                        };
+                    } else if (krakenData[ticker][ticker + 'ETH'] && yunbiData[ticker][ticker + 'CNY']) {
+                        yunbiArbitrageKraken[ticker] = {
+                            askKraken: krakenData[ticker][ticker + 'ETH'].averageAskPrice,
+                            askYunbi: yunbiData[ticker][ticker + 'CNY'].averageAskPrice,
+                            bidKraken: krakenData[ticker][ticker + 'ETH'].averageBidPrice,
+                            bidYunbi: yunbiData[ticker][ticker + 'CNY'].averageBidPrice,
+                            diference: yunbiData[ticker][ticker + 'CNY'].averageAskPrice - krakenData[ticker][ticker + 'ETH'].averageBidPrice,
+                            percentage: (yunbiData[ticker][ticker + 'CNY'].averageAskPrice / krakenData[ticker][ticker + 'ETH'].averageBidPrice - 1) * 100
                         };
                         // console.log(`                      Yunbi/Kraken is ${yunbiArbitrageKraken[ticker].percentage.toFixed(2)}%`);
                         // console.log(yunbiArbitrageKraken);
+                        console.log('@@@')
                     }
                 };
 
@@ -257,6 +275,26 @@ export function homeController() {
 
 
             //Printing result:
+
+                        // 10eth> sell to yunbi BID ETHCNY > ASK REPCNY Yunbi> BID REPETH Kraken > diff now EHT - initial ETH;
+                        //Prices now are all EUR, need to get original prices
+            console.log( krakenData['REP']['REPETH']);
+            let initialETH = 20,
+                askYunbiREPCNY = yunbiData['REP']['REPCNY'].avgAskOrigCurrency,
+                bidYunbiETHCNY = yunbiData['ETH']['ETHCNY'].avgBidOrigCurrency,
+                bidKrakenREPETH = krakenData['REP']['REPETH'].avgBidOrigCurrency,
+                CNYRecieved = initialETH*bidYunbiETHCNY,
+                REPRecieved = CNYRecieved/askYunbiREPCNY,
+                ETHRecieved = REPRecieved*bidKrakenREPETH;
+
+            console.log(`Start with ${initialETH}ETH`);
+            console.log(`BID Yunbi ETHCNY: ${bidYunbiETHCNY}`);
+            console.log(`ASK Yunbi REPCNY: ${askYunbiREPCNY}`);
+            console.log(`BID Kraken REPETH: ${bidKrakenREPETH}`);
+            console.log(`CNY bought in Yunbi: ${CNYRecieved}`);
+            console.log(`REP bought in Yunbi: ${REPRecieved}`);
+            console.log(`ETH bought in Kraken: ${ETHRecieved}`);
+
             console.log('-----------------Kraken---------------------');
             console.log('............................................');
             console.log('------------Yunbi arbitrage:---------------');

@@ -20,7 +20,7 @@ let pairs = ['eth_btc', 'eth_rep', 'eth_xrp', 'eth_etc'];
 // let pairs = ['eth_btc', 'etc_btc', 'rep_btc', 'rep_eth', 'icn_btc', 'icn_eth', 'xrp_btc'];
 
 
-const euroToSpend = 2000;
+const euroToSpend = 4400;
 
 let promArray = [],
     namesArray = [];

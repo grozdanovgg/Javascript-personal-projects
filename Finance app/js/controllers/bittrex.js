@@ -16,7 +16,7 @@ import { Bittrex } from '../util/bittrexData';
 let pairs = ['btc-ltc', 'btc-eth', 'btc-xrp', 'btc-rep'];
 
 
-const euroToSpend = 2000;
+const euroToSpend = 4400;
 
 let promArray = [],
     namesArray = [];

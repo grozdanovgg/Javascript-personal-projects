@@ -16,7 +16,7 @@ import { Bxin } from '../util/bxinData';
 let pairs = [{ "id": "1", "name": "BTCTHB" }, { "id": "21", "name": "ETHTHB" }, { "id": "20", "name": "ETHBTC" }, { "id": "25", "name": "XRPTHB" }]
 
 
-const euroToSpend = 2000;
+const euroToSpend = 4400;
 
 let promArray = [],
     namesArray = [];
