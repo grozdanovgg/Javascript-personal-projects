@@ -13,10 +13,10 @@ import { Pair } from '../util/Pair';
 import { CryptoJS as hmac_sha512 } from '../../node_modules/node.bittrex.api/hmac-sha512.js';
 import { Bittrex } from '../util/bittrexData';
 
-let pairs = ['btc-ltc', 'btc-eth', 'btc-xrp', 'btc-rep'];
+let pairs = ['btc-ltc', 'btc-eth', 'btc-xrp', 'btc-rep', 'btc-etc'];
 
 
-const euroToSpend = 4400;
+// const euroToSpend = 4400;
 
 let promArray = [],
     namesArray = [];
@@ -42,13 +42,14 @@ promArray.push(ltcPricePromise);
 promArray.push(repPricePromise);
 promArray.push(xrpPricePromise);
 
-export function bittrexController(euroToSpend) {
+export function bittrexController(moneyToSpend) {
 
     return Promise.all(promArray)
-        .then(calculateRealAskBid)
+        .then((rawData) => calculateRealAskBid(rawData, moneyToSpend))
 }
 
-function calculateRealAskBid(rawData) {
+function calculateRealAskBid(rawData, moneyToSpend) {
+    const euroToSpend = moneyToSpend.eur;
     let convertionCoeff = 1;
     let tickerArray = [];
     let result = {};
@@ -107,7 +108,9 @@ function calculateRealAskBid(rawData) {
             remainingAskMoney = euroToSpend,
             remainingBidMoney = euroToSpend,
             averageAskPrice = 0,
-            averageBidPrice = 0;
+            averageBidPrice = 0,
+            avgAskOrigCurrency = 0,
+            avgBidOrigCurrency = 0;
         for (let j = 0; j < arrLength; j += 1) {
             let askPositionPrice = asksEuro[j].positionPrice;
             let bidPositionPrice = bidsEuro[j].positionPrice;
@@ -130,6 +133,9 @@ function calculateRealAskBid(rawData) {
 
             averageAskPrice = euroToSpend / askBoughtVolume;
             averageBidPrice = euroToSpend / bidSoldVolume;
+
+            avgAskOrigCurrency = (euroToSpend / askBoughtVolume) / convertionCoeff;
+            avgBidOrigCurrency = (euroToSpend / bidSoldVolume) / convertionCoeff;
         }
 
         if (name.slice(0, 3) === 'BTC') {
@@ -143,12 +149,12 @@ function calculateRealAskBid(rawData) {
             result[name.slice(0, 3)] = {};
         }
 
-        result[name.slice(0, 3)][name] = { name, asks, bids, asksEuro, bidsEuro, averageAskPrice, averageBidPrice };
+        result[name.slice(0, 3)][name] = { name, asks, bids, asksEuro, bidsEuro, averageAskPrice, averageBidPrice, avgAskOrigCurrency, avgBidOrigCurrency };
         // console.log({ name, asks, bids, asksEuro, bidsEuro, averageAskPrice, averageBidPrice });
         // console.log(averageAskPrice);
         // console.log('------------------');
     }
-    // console.log(result);
+    console.log(result);
     return result;
 
     // console.log(tickerArray);

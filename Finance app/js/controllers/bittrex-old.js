@@ -14,7 +14,7 @@ import { CryptoJS as hmac_sha512 } from '../../node_modules/node.bittrex.api/hma
 import { Bittrex } from '../util/bittrexData';
 
 
-export function bittrexController() {
+export function bittrexControllerOld() {
 
     var url = 'https://bittrex.com/api/v1.1/public/getticker?market=BTC-LTC';
 

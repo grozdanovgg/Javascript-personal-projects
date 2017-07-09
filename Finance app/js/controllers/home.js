@@ -4,11 +4,16 @@ import { yunbiController } from '../controllers/yunbi';
 import { bxinController } from '../controllers/bxin';
 import { shapeShiftController } from '../controllers/shapeShift';
 
+const moneyToSpend = {
+    eur: 4400,
+    eth: 20
+};
+
 function diff(arr, arr2) {
-    var ret = [];
+    let ret = [];
     arr.sort();
     arr2.sort();
-    for (var i = 0; i < arr.length; i += 1) {
+    for (let i = 0; i < arr.length; i += 1) {
         if (arr2.indexOf(arr[i]) > -1) {
             ret.push(arr[i]);
         }
@@ -18,13 +23,13 @@ function diff(arr, arr2) {
 
 export function homeController() {
 
-    let p1 = krakenController(),
-        p2 = shapeShiftController(),
-        p3 = bittrexController(),
-        p4 = yunbiController(),
-        p5 = bxinController();
+    let p1 = krakenController(moneyToSpend),
+        p2 = shapeShiftController(moneyToSpend),
+        p3 = bittrexController(moneyToSpend),
+        p4 = yunbiController(moneyToSpend),
+        p5 = bxinController(moneyToSpend);
     let promiseArray = [p1, p2, p3, p4, p5];
-    // console.log(promiseArray);
+    console.log(promiseArray);
     Promise.all(promiseArray)
         .then((data) => {
             // console.log('here');
@@ -93,18 +98,18 @@ export function homeController() {
 
             //Kraken arbitrage analitycs
             //To fix only EURO price get....
-             
+
             krakenTickers.forEach((ticker) => {
 
-                
+
 
                 if (yunbiData[ticker] && krakenData[ticker]) {
                     console.log(yunbiData[ticker]);
                     console.log(krakenData[ticker]);
                     console.log(ticker)
-                    
-                    
-                    if( ticker === 'ETH'){
+
+
+                    if (ticker === 'ETH') {
                         yunbiArbitrageKraken[ticker] = {
                             askKraken: krakenData[ticker][ticker + 'EUR'].averageAskPrice,
                             askYunbi: yunbiData[ticker][ticker + 'CNY'].averageAskPrice,
@@ -276,16 +281,16 @@ export function homeController() {
 
             //Printing result:
 
-                        // 10eth> sell to yunbi BID ETHCNY > ASK REPCNY Yunbi> BID REPETH Kraken > diff now EHT - initial ETH;
-                        //Prices now are all EUR, need to get original prices
-            console.log( krakenData['REP']['REPETH']);
+            // 10eth> sell to yunbi BID ETHCNY > ASK REPCNY Yunbi> BID REPETH Kraken > diff now EHT - initial ETH;
+            //Prices now are all EUR, need to get original prices
+            console.log(krakenData['REP']['REPETH']);
             let initialETH = 20,
                 askYunbiREPCNY = yunbiData['REP']['REPCNY'].avgAskOrigCurrency,
                 bidYunbiETHCNY = yunbiData['ETH']['ETHCNY'].avgBidOrigCurrency,
                 bidKrakenREPETH = krakenData['REP']['REPETH'].avgBidOrigCurrency,
-                CNYRecieved = initialETH*bidYunbiETHCNY,
-                REPRecieved = CNYRecieved/askYunbiREPCNY,
-                ETHRecieved = REPRecieved*bidKrakenREPETH;
+                CNYRecieved = initialETH * bidYunbiETHCNY,
+                REPRecieved = CNYRecieved / askYunbiREPCNY,
+                ETHRecieved = REPRecieved * bidKrakenREPETH;
 
             console.log(`Start with ${initialETH}ETH`);
             console.log(`BID Yunbi ETHCNY: ${bidYunbiETHCNY}`);

@@ -13,12 +13,12 @@ import { Pair } from '../util/Pair';
 import { CryptoJS as hmac_sha512 } from '../../node_modules/node.bittrex.api/hmac-sha512.js';
 import { Yunbi } from '../util/yunbiData';
 
-let pairs = [{ "id": "btccny", "name": "BTC/CNY" }, { "id": "ethcny", "name": "ETH/CNY" }, { "id": "dgdcny", "name": "DGD/CNY" }, { "id": "etccny", "name": "ETC/CNY" }, { "id": "repcny", "name": "REP/CNY" }]
+let pairs = [{ "id": "btccny", "name": "BTC/CNY" }, { "id": "ethcny", "name": "ETH/CNY" }, { "id": "dgdcny", "name": "DGD/CNY" }, { "id": "etccny", "name": "ETC/CNY" }, { "id": "repcny", "name": "REP/CNY" }, { "id": "eoscny", "name": "EOS/CNY" }, { "id": "zeccny", "name": "ZEC/CNY" }]
 
 // var url = 'https://yunbi.com//api/v2/depth.json?market=btccny&limit=50';
 
-const euroToSpend = 4400;
-const ETHToSpend = 20;
+// const euroToSpend = 4400;
+// const ETHToSpend = 20;
 
 let promArray = [],
     namesArray = [];
@@ -35,13 +35,15 @@ pairs.forEach(pair => {
 let exchangesPromise = Request.get("http://api.fixer.io/latest");
 promArray.push(exchangesPromise);
 
-export function yunbiController(euroToSpend) {
+export function yunbiController(moneyToSpend) {
 
     return Promise.all(promArray)
-        .then(calculateRealAskBid)
+        .then((rawData) => calculateRealAskBid(rawData, moneyToSpend))
 }
 
-function calculateRealAskBid(rawData) {
+function calculateRealAskBid(rawData, moneyToSpend) {
+    const euroToSpend = moneyToSpend.eur;
+
     let tickerArray = [];
     let result = {};
     let exchangePromise = rawData[rawData.length - 1];
@@ -116,7 +118,7 @@ function calculateRealAskBid(rawData) {
             result[name.slice(0, 3)] = {};
         }
 
-        result[name.slice(0, 3)][name] = { name, asks, bids, asksEuro, bidsEuro, averageAskPrice, averageBidPrice, avgAskOrigCurrency , avgBidOrigCurrency };
+        result[name.slice(0, 3)][name] = { name, asks, bids, asksEuro, bidsEuro, averageAskPrice, averageBidPrice, avgAskOrigCurrency, avgBidOrigCurrency };
         // console.log({ name, asks, bids, asksEuro, bidsEuro, averageAskPrice, averageBidPrice });
         // console.log(averageAskPrice);
         // console.log('------------------');

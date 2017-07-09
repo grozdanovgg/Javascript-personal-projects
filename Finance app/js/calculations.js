@@ -147,7 +147,7 @@ export class Calculate {
                     .then(() => {
                         let tableToColorBy = $('.prediction-score');
                         let pointsElementToColor = $('#indicator-performance');
-                        Coloriser.table(tableToColorBy);
+                        Coloriser.table(tableToColorBy, pointsTreshhold);
                         Coloriser.backgroundPrimary(pointsElementToColor);
                     })
                     .then(() => {

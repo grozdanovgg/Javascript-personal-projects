@@ -1,0 +1,63 @@
+<table id="arbitrage-table" class="table table-hover table-responsive">
+    <thead>
+        <tr>
+            <td colspan="9">
+                <h4>
+                    Exchanges arbitrage  
+                </h4>
+            </td>
+        </tr>
+        {{!--<tr>
+            <th colspan="9">{{this.1.main}} exchange</th>
+        </tr>--}}
+    </thead>
+    <tbody class="table-body">
+        {{#each this}}
+        <tr>
+            <td>Exchange</td>
+            <td>Initial {{A}}</td>
+            <td>{{2}} {{A}}{{C}} Bid rate</td>
+            <td>{{2}} {{B}}{{C}} Ask rate</td>
+            <td>{{1}} {{B}}{{A}} Bid rate</td>
+            <td>{{C}} bought</td>
+            <td>{{B}} bought</td>
+            <td>{{A}} bought</td>
+            <td>Profit</td>
+            <td>Percentage</td>
+        </tr>
+        <tr>
+            <th>    
+                {{main}}
+            </th>
+            <th>    
+                {{startSum}}
+            </th>
+            <th>
+                {{bid2AC}}
+            </th>
+            <th>
+                {{ask2BC}}
+            </th>
+             <th>
+                {{bid1BA}}
+            </th>
+            <th>
+                {{CRecieved}}
+            </th>
+            <th>
+                {{BRecieved}}
+            </th>
+            <th>
+                {{ARecieved}}
+            </th>
+            <th class="bg-primary">
+                {{A}} {{profit}}
+            </th>
+            <th class="percent bg-primary">
+                {{percent}}%
+            </th>
+        </tr>
+        </tr><td colspan="9"></td><tr>
+        {{/each}}
+    </tbody>
+</table>

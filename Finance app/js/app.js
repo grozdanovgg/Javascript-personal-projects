@@ -6,6 +6,7 @@ import { bittrexController } from './controllers/bittrex';
 import { yunbiController } from './controllers/yunbi';
 import { homeController } from './controllers/home';
 import { bxinController } from './controllers/bxin';
+import { arbitrageController } from './controllers/arbitrage';
 
 
 
@@ -24,6 +25,7 @@ router.on({
     'bittrex': bittrexController,
     'yunbi': yunbiController,
     'bxin': bxinController,
+    'arbitrage': arbitrageController,
     // 'home/:sideBarContent': (params) => sideBarController.get(params),
     // 'chart/:sideBarContent': (params) => sideBarController.get(params),
     // 'table/:sideBarContent': (params) => sideBarController.get(params),

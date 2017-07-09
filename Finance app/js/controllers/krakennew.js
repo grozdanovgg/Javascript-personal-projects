@@ -13,11 +13,18 @@ import { Pair } from '../util/Pair';
 import { CryptoJS as hmac_sha512 } from '../../node_modules/node.bittrex.api/hmac-sha512.js';
 import { Kraken } from '../util/krakenData';
 
-let pairs = ['ETHEUR', 'ETHXBT', 'ETCEUR', 'ETCXBT', 'ETCETH', 'REPEUR', 'REPXBT', 'REPETH', 'XBTEUR', 'ICNXBT', 'ICNETH', 'XRPEUR', 'XRPXBT'];
-
-
-const euroToSpend = 4400;
-const ETHToSpend = 20;
+let pairs = ['ETHEUR', 'ETHXBT', 'ETCEUR', 'ETCXBT', 'ETCETH', 'REPEUR', 'REPXBT', 'REPETH', 'XBTEUR', 'ICNXBT', 'ICNETH', 'XRPEUR', 'XRPXBT', 'EOSETH', 'EOSEUR'];
+// let pairs = [];
+// Request.get('https://api.kraken.com/0/public/AssetPairs')
+//     .then((data) => {
+//         for (let ticker in data.result) {
+//             console.log(ticker);
+//             pairs.push(ticker.altname);
+//         }
+//         console.log(pairs);
+//     });
+// const euroToSpend = 4400;
+// const ETHToSpend = 20;
 
 let promArray = [],
     namesArray = [];
@@ -37,14 +44,17 @@ promArray.push(xbtPricePromise);
 promArray.push(ethPricePromise);
 // console.log(promArray);
 
-export function krakenController(euroToSpend) {
+export function krakenController(moneyToSpend) {
+    // console.log(moneyToSpend);
     return Promise.all(promArray)
-        .then(calculateRealAskBid)
+        .then((rawData) => calculateRealAskBid(rawData, moneyToSpend))
 }
 
 
 
-function calculateRealAskBid(rawData) {
+function calculateRealAskBid(rawData, moneyToSpend) {
+    // console.log(moneyToSpend);
+    const euroToSpend = moneyToSpend.eur;
     // console.log(rawData);
     //Remove X and Z drom rowData names
     for (let i = 0; i < rawData.length - 3; i += 1) {
@@ -140,7 +150,7 @@ function calculateRealAskBid(rawData) {
         if (!result[name.slice(0, 3)]) {
             result[name.slice(0, 3)] = {};
         }
-        result[name.slice(0, 3)][name] = { name, asks, bids, asksEuro, bidsEuro, averageAskPrice, averageBidPrice, avgAskOrigCurrency , avgBidOrigCurrency };
+        result[name.slice(0, 3)][name] = { name, asks, bids, asksEuro, bidsEuro, averageAskPrice, averageBidPrice, avgAskOrigCurrency, avgBidOrigCurrency };
         // console.log({ name, asks, bids, asksEuro, bidsEuro, averageAskPrice, averageBidPrice });
         // console.log(averageAskPrice);
         // console.log('------------------');
