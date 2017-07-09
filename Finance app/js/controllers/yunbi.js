@@ -54,7 +54,7 @@ function calculateRealAskBid(rawData, moneyToSpend) {
 
 
     for (let i = 0; i < rawData.length - 1; i += 1) {
-        let asks = rawData[i].asks.reverse();
+        let asks = rawData[i].asks.slice().reverse();
         let bids = rawData[i].bids;
         let name = namesArray[i].toUpperCase();
 

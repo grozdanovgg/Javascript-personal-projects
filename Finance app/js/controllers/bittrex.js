@@ -154,7 +154,7 @@ function calculateRealAskBid(rawData, moneyToSpend) {
         // console.log(averageAskPrice);
         // console.log('------------------');
     }
-    console.log(result);
+    // console.log(result);
     return result;
 
     // console.log(tickerArray);

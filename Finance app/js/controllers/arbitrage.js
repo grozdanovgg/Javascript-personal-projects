@@ -6,27 +6,44 @@ import { shapeShiftController } from '../controllers/shapeShift';
 import { getTemplate } from '../util/templater';
 import { Coloriser } from '../util/coloriser';
 
-
-
-const moneyToSpend = {
+let moneyToSpend = {
     eur: 4400,
     eth: 20
 };
+export function arbitrageController() {
+    let inputDiv = $('#input-div'),
+        inputField = inputDiv.append(`Ethereum ammount:  <input type="number" value="10" name="quantity" id="input-field" min="1" max="100000">`),
+        inputETHEUR = inputDiv.append(`ETHEUR price:  <input type="number" value="200" name="quantity" id="input-exch-course" min="1" max="100000">`),
+        inputBitton = inputDiv.append(`<button type="button" id="calculate-btn" class="btn btn-info">Calculate</button>`);
 
-function diff(arr, arr2) {
-    let ret = [];
-    arr.sort();
-    arr2.sort();
-    for (let i = 0; i < arr.length; i += 1) {
-        if (arr2.indexOf(arr[i]) > -1) {
-            ret.push(arr[i]);
-        }
-    }
-    return ret;
+    $('#calculate-btn').on('click', () => {
+        // console.log(+$('#input-field').val());
+        moneyToSpend.eth = $('#input-field').val();
+        moneyToSpend.eur = $('#input-exch-course').val() * moneyToSpend.eth;
+        // console.log(moneyToSpend);
+        arbitrageData();
+    });
 }
+
+
+
+
+// function diff(arr, arr2) {
+//     let ret = [];
+//     arr.sort();
+//     arr2.sort();
+//     for (let i = 0; i < arr.length; i += 1) {
+//         if (arr2.indexOf(arr[i]) > -1) {
+//             ret.push(arr[i]);
+//         }
+//     }
+//     return ret;
+// }
 // let tempy = bittrexController(moneyToSpend);
 
-export function arbitrageController() {
+function arbitrageData() {
+    // console.log(moneyToSpend);
+
     let p1 = krakenController(moneyToSpend),
         p2 = shapeShiftController(moneyToSpend),
         p3 = bittrexController(moneyToSpend),
@@ -41,42 +58,13 @@ export function arbitrageController() {
                 shapeShiftData = data[1],
                 bittrexData = data[2],
                 yunbiData = data[3],
-                bxinData = data[4],
-
-                krakenTickers = [],
-                shapeShiftTickers = [],
-                bittrexTickers = [],
-                yunbiTickers = [],
-                bxinTickers = [],
-
-                yunbiCommonTickersKraken = [],
-                bxinCmmonTickersKraken = [],
-                yunbiCommonTickersShapeShift = [],
-                bxinCommonTickersShapeShift = [],
-                yunbiCommonTickersBittrex = [],
-                bxinCommonTickersBittrex = [],
-
-                yunbiArbitrageKraken = {},
-                bxInArbitrageKraken = {},
-                yunbiArbitrageShapeShift = {},
-                bxinArbitrageShapeShift = {},
-                yunbiArbitrageBittrex = {},
-                bxinArbitrageBittrex = {};
-
-            krakenTickers = Object.keys(krakenData);
-            shapeShiftTickers = Object.keys(shapeShiftData);
-            bittrexTickers = Object.keys(bittrexData);
-            yunbiTickers = Object.keys(yunbiData);
-            bxinTickers = Object.keys(bxinData);
-
-
+                bxinData = data[4];
 
             for (let ticker in yunbiData) {
                 if (yunbiData[ticker].name === 'BTCCNY') {
                     yunbiData[ticker].name = 'XBTCNY';
                 }
             }
-
 
             for (let i in bxinData) {
                 let ticker = bxinData[i];
@@ -88,73 +76,6 @@ export function arbitrageController() {
                     ticker.name = 'ETHXBT';
                 }
             }
-            // yunbiCommonTickersKraken = diff(yunbiTickers, krakenTickers);
-            // bxinCmmonTickersKraken = diff(bxinTickers, krakenTickers);
-
-
-
-            //Kraken arbitrage analitycs
-            //To fix only EURO price get....
-
-            krakenTickers.forEach((ticker) => {
-
-                if (yunbiData[ticker] && krakenData[ticker]) {
-                    if (ticker === 'ETH') {
-                        yunbiArbitrageKraken[ticker] = {
-                            askKraken: krakenData[ticker][ticker + 'EUR'].averageAskPrice,
-                            askYunbi: yunbiData[ticker][ticker + 'CNY'].averageAskPrice,
-                            bidKraken: krakenData[ticker][ticker + 'EUR'].averageBidPrice,
-                            bidYunbi: yunbiData[ticker][ticker + 'CNY'].averageBidPrice,
-                            diference: yunbiData[ticker][ticker + 'CNY'].averageAskPrice - krakenData[ticker][ticker + 'EUR'].averageBidPrice,
-                            percentage: (yunbiData[ticker][ticker + 'CNY'].averageAskPrice / krakenData[ticker][ticker + 'EUR'].averageBidPrice - 1) * 100
-                        };
-                    } else if (krakenData[ticker][ticker + 'ETH'] && yunbiData[ticker][ticker + 'CNY']) {
-                        yunbiArbitrageKraken[ticker] = {
-                            askKraken: krakenData[ticker][ticker + 'ETH'].averageAskPrice,
-                            askYunbi: yunbiData[ticker][ticker + 'CNY'].averageAskPrice,
-                            bidKraken: krakenData[ticker][ticker + 'ETH'].averageBidPrice,
-                            bidYunbi: yunbiData[ticker][ticker + 'CNY'].averageBidPrice,
-                            diference: yunbiData[ticker][ticker + 'CNY'].averageAskPrice - krakenData[ticker][ticker + 'ETH'].averageBidPrice,
-                            percentage: (yunbiData[ticker][ticker + 'CNY'].averageAskPrice / krakenData[ticker][ticker + 'ETH'].averageBidPrice - 1) * 100
-                        };
-                    }
-                };
-
-                if (bxinData[ticker] && krakenData[ticker]) {
-                    if (krakenData[ticker][ticker + 'EUR'] && bxinData[ticker][ticker + 'THB']) {
-                        bxInArbitrageKraken[ticker] = {
-                            askKraken: krakenData[ticker][ticker + 'EUR'].averageAskPrice,
-                            askBxin: bxinData[ticker][ticker + 'THB'].averageAskPrice,
-                            bidKraken: krakenData[ticker][ticker + 'EUR'].averageBidPrice,
-                            bidBxin: bxinData[ticker][ticker + 'THB'].averageBidPrice,
-                            diference: bxinData[ticker][ticker + 'THB'].averageBidPrice - krakenData[ticker][ticker + 'EUR'].averageAskPrice,
-                            percentage: (bxinData[ticker][ticker + 'THB'].averageBidPrice / krakenData[ticker][ticker + 'EUR'].averageAskPrice - 1) * 100
-                        };
-                    }
-                };
-            });
-
-
-
-            //Printing result:
-
-            // 10eth> sell to yunbi BID ETHCNY > ASK REPCNY Yunbi> BID REPETH Kraken > diff now EHT - initial ETH;
-            //Prices now are all EUR, need to get original prices
-
-            // console.log(krakenData['REP']['REPETH']);
-
-
-            // console.log(`Start with ${initialETH}ETH`);
-            // console.log(`BID Yunbi ETHCNY: ${bidYunbiETHCNY}`);
-            // console.log(`ASK Yunbi REPCNY: ${askYunbiREPCNY}`);
-            // console.log(`BID Kraken REPETH: ${bidKrakenREPETH}`);
-            // console.log(`CNY bought in Yunbi: ${CNYRecieved}`);
-            // console.log(`REP bought in Yunbi: ${REPRecieved}`);
-            // console.log(`ETH bought in Kraken: ${ETHRecieved}`);
-
-
-
-
 
             let arbitrageTickers = [{
                     main: 'Kraken',
@@ -194,6 +115,7 @@ export function arbitrageController() {
 
             let arbitrageActionsArr = [];
             arbitrageTickers.forEach((ticker) => {
+                // console.log(ticker.main);
                 switch (ticker.main) {
                     case 'Kraken':
                         mainData = krakenData;
@@ -208,11 +130,10 @@ export function arbitrageController() {
                 }
 
                 //TO BE FIXED!!!
-                console.log(ticker.main);
-                console.log(mainData);
-                console.log(secondaryData);
-                console.log(mainData[ticker.B]);
-                console.log(ticker.B + ticker.A);
+                // console.log(mainData);
+                // console.log(secondaryData);
+                // console.log(mainData[ticker.B]);
+                // console.log(ticker.B + ticker.A);
                 let startSum = moneyToSpend.eth,
                     bid2AC = secondaryData[ticker.A][ticker.A + ticker.C].avgBidOrigCurrency.toFixed(4),
                     ask2BC = secondaryData[ticker.B][ticker.B + ticker.C].avgAskOrigCurrency.toFixed(4);
@@ -225,22 +146,24 @@ export function arbitrageController() {
 
 
                 let result = {
-                    startSum,
-                    main: ticker.main,
-                    second: ticker.second,
-                    A: ticker.A,
-                    B: ticker.B,
-                    C: ticker.C,
-                    D: ticker.D,
-                    bid2AC,
-                    ask2BC,
-                    bid1BA,
-                    CRecieved,
-                    BRecieved,
-                    ARecieved,
-                    profit,
-                    percent
-                }
+                        startSum,
+                        main: ticker.main,
+                        second: ticker.second,
+                        A: ticker.A,
+                        B: ticker.B,
+                        C: ticker.C,
+                        D: ticker.D,
+                        bid2AC,
+                        ask2BC,
+                        bid1BA,
+                        CRecieved,
+                        BRecieved,
+                        ARecieved,
+                        profit,
+                        percent
+                    }
+                    // console.log(secondaryData[ticker.B][ticker.B + ticker.C]);
+                    // console.log(result);
                 if (ticker.D !== '') {
                     let stepThreeAsk1DB = mainData[ticker.D][tickerD + ticker.B].avgAskOrigCurrency.toFixed(4),
                         DRecieved = (BRecieved / ask2BC * 0.9974).toFixed(4);
@@ -286,7 +209,7 @@ export function arbitrageController() {
                 })
                 .then(() => {
                     let tableToColorBy = $('.percent');
-                    console.log(tableToColorBy);
+                    // console.log(tableToColorBy);
                     Coloriser.table(tableToColorBy, 0);
                 });
         });

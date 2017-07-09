@@ -45,9 +45,16 @@ promArray.push(ethPricePromise);
 // console.log(promArray);
 
 export function krakenController(moneyToSpend) {
-    // console.log(moneyToSpend);
-    return Promise.all(promArray)
-        .then((rawData) => calculateRealAskBid(rawData, moneyToSpend))
+    console.log(moneyToSpend);
+    let result = Promise.all(promArray)
+        .then((rawData) => {
+            let resultin = calculateRealAskBid(rawData, moneyToSpend);
+            console.log(resultin);
+            return resultin;
+        });
+    console.log(result);
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+    return result;
 }
 
 
@@ -57,16 +64,19 @@ function calculateRealAskBid(rawData, moneyToSpend) {
     const euroToSpend = moneyToSpend.eur;
     // console.log(rawData);
     //Remove X and Z drom rowData names
-    for (let i = 0; i < rawData.length - 3; i += 1) {
-        let obj = rawData[i];
-        let nameRaw = Object.keys(obj.result)[0];
-        let indexDataObj = rawData[i].result[nameRaw];
-        let mainIndex = nameRaw.slice(1, 4);
-        let secondIndex = nameRaw.slice(5);
-        let name = mainIndex + secondIndex;
-        rawData[i].result[name] = indexDataObj;
-        delete rawData[i].result[nameRaw];
-    }
+    // for (let i = 0; i < rawData.length - 3; i += 1) {
+    //     let obj = rawData[i];
+    //     let nameRaw = Object.keys(obj.result)[0];
+    //     let indexDataObj = rawData[i].result[nameRaw];
+    //     let mainIndex;
+    //     let secondIndex;
+    //     mainIndex = nameRaw.slice(0, 3);
+    //     secondIndex = nameRaw.slice(4);
+
+    //     let name = mainIndex + secondIndex;
+    //     rawData[i].result[name] = indexDataObj;
+    //     delete rawData[i].result[nameRaw];
+    // }
 
     let convertionCoeff = 1;
     let tickerArray = [];
@@ -82,10 +92,12 @@ function calculateRealAskBid(rawData, moneyToSpend) {
     let eurForEth = +ethPricePromise.result.XETHZEUR.a[0];
 
     // console.log(namesArray);
+    console.log(rawData);
     for (let i = 0; i < rawData.length - 3; i += 1) {
         let objData = rawData[i];
-        // console.log(objData);
         let nameRaw = Object.keys(objData.result)[0];
+        console.log(nameRaw);
+        console.log(Object.keys(objData.result));
         let asks = objData.result[nameRaw].asks;
         let bids = objData.result[nameRaw].bids;
         let name = namesArray[i].toUpperCase();
