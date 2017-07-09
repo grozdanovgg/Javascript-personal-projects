@@ -216,7 +216,7 @@ export function arbitrageController() {
                 let startSum = moneyToSpend.eth,
                     bid2AC = secondaryData[ticker.A][ticker.A + ticker.C].avgBidOrigCurrency.toFixed(4),
                     ask2BC = secondaryData[ticker.B][ticker.B + ticker.C].avgAskOrigCurrency.toFixed(4);
-                let bid1BA = mainData[ticker.B][ticker.B + ticker.A].avgAskOrigCurrency.toFixed(4),
+                let bid1BA = mainData[ticker.B][ticker.B + ticker.A].avgBidOrigCurrency.toFixed(4),
                     CRecieved = (startSum * bid2AC * 0.999).toFixed(4),
                     BRecieved = (CRecieved / ask2BC * 0.999).toFixed(4),
                     ARecieved = (BRecieved * bid1BA * 0.9974).toFixed(4),
