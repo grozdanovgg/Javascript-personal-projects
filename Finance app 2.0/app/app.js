@@ -10,6 +10,7 @@ const init = (serverConnfig) => {
     app.use('/static', express.static(path.join(__dirname, './static')));
     app.use('/libs', express.static(path.join(__dirname, './node_modules')));
     app.use(bodyParser.urlencoded({ extended: true }));
+    // @ts-ignore
     app.set('views');
     app.set('view engine', 'pug');
 
