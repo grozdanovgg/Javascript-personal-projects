@@ -8,10 +8,9 @@ const get = {
         try {
             const kraken = new KrakenClient(key, secret);
             // @ts-ignore
-            const result = await kraken.api('OHLC', { pair, interval });
-            return result;
+            return await kraken.api('OHLC', { pair, interval });
         } catch (err) {
-            console.log('in the error');
+            console.log('in the error of kraken util, OHLC method');
             return console.log(err);
         }
     }
