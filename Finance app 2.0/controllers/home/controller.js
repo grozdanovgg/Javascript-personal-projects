@@ -12,12 +12,17 @@ const showHome = (req, res) => {
 
     const exchanges = config.exchanges;
 
-    exchanges.forEach((exchange) => {
-        dataHandler.getAllExchangePairsOHCL(exchange)
-            .then((result) => {
-                console.log(result);
-            })
-    });
+    dataHandler.getAllExchangesOHCL(exchanges)
+        .then((result) => {
+            console.log(result[0][0].result);
+        })
+
+    // exchanges.forEach((exchange) => {
+    //     dataHandler.getAllExchangePairsOHCL(exchange)
+    //         .then((result) => {
+    //             console.log(result);
+    //         })
+    // });
     res.render('home');
 }
 
