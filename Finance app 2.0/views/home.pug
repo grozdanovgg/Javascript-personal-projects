@@ -1,5 +1,19 @@
 extends shared/_master
 
 block body
-  h1
-    |Hello world
+  div.table-responsive.table-hover
+    table.table
+      tbody
+        tr
+          td time
+          td open
+          td high
+          td low
+          td close
+          td vwap
+          td volume
+          td count
+        each day in data
+          tr
+          each info in day
+            td= info

@@ -13,8 +13,13 @@ const showHome = (req, res) => {
     const exchanges = config.exchanges;
 
     dataHandler.getAllExchangesOHCL(exchanges)
-        .then((result) => {
-            console.log(result[0][0].result);
+        .then((exchangesData) => {
+            console.log(exchangesData[0][0].result.XETHZEUR);
+            res.render('home', { data: exchangesData[0][0].result.XETHZEUR });
+        })
+        .catch((err) => {
+            console.log('Error in home controller');
+            return new Error(err);
         })
 
     // exchanges.forEach((exchange) => {
@@ -23,7 +28,6 @@ const showHome = (req, res) => {
     //             console.log(result);
     //         })
     // });
-    res.render('home');
 }
 
 module.exports = { showHome };

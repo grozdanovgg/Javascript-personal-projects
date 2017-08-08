@@ -1,0 +1,3 @@
+function simpleMovingAverage(data) {
+
+}
