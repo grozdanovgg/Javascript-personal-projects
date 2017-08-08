@@ -1,4 +1,4 @@
-const pairs = ['ETHEUR']
+const pairs = ['ETHEUR', 'BTCEUR']
 const exchanges = [{
     name: 'kraken',
     pairs,

@@ -19,20 +19,21 @@ const showHome = (req, res) => {
             closings: [202, 212, 222, 232, 232, 232, 242, 243, 244, 245],
         }
         // const testSMAArray = indexes.SMA(mockupData, 4);
-    const testSDArray = indexes.BB(mockupData, 4);
-    // console.log(testSMAArray);
-    // console.log(testSDArray);
+        // const testSDArray = indexes.BB(mockupData, 4);
+        // console.log(testSMAArray);
+        // console.log(testSDArray);
 
-    // const exchanges = config.exchanges;
-    // dataHandler.getAllExchangesOHCL(exchanges)
-    //     .then((exchangesData) => {
-    //         console.log(exchangesData[0][0].result.XETHZEUR);
-    //         res.render('home', { data: exchangesData[0][0].result.XETHZEUR });
-    //     })
-    //     .catch((err) => {
-    //         console.log('Error in home controller');
-    //         return new Error(err);
-    //     })
+    const exchanges = config.exchanges;
+    dataHandler.getAllExchangesOHCL(exchanges)
+        .then((data) => {
+            // console.log(exchangesData[0][0].result.XETHZEUR);
+            console.log(data[0].result);
+            res.render('home', { data });
+        })
+        .catch((err) => {
+            console.log('Error in home controller');
+            return new Error(err);
+        })
 }
 
 module.exports = { showHome };

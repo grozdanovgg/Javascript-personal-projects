@@ -7,9 +7,12 @@ async function getAllExchangePairsOHCL(exchange) {
         for (let pairName of pairs) {
             const newPair = new Pair(pairName, exchange.name);
             await newPair.OHLC(interval)
-                .then((info) => {
+                .then((pairData) => {
                     // console.log('Pushed one more');
-                    result.push(info);
+                    result.push({
+                        pairName,
+                        pairData
+                    });
                 })
                 .catch((err) => {
                     console.log('in the error of newPair.OHLC');
@@ -28,10 +31,13 @@ const get = {
         for (let exchange of exchanges) {
             await getAllExchangePairsOHCL(exchange)
                 .then((result) => {
-                    exchangesResult.push(result);
+                    exchangesResult.push({
+                        exchange: exchange.name,
+                        result
+                    });
                 })
         };
-        return exchangesResult
+        return exchangesResult;
     }
 }
 module.exports = get;
