@@ -36,8 +36,6 @@ function processKrekenData(rawData, pair, interval) {
     result.SMA = indexes.SMA(result, nPeriod);
     result.BB = indexes.BB(result, nPeriod);
 
-    // result.SMA = SMA;
-    // result.BB = BB;
     return result;
 }
 
