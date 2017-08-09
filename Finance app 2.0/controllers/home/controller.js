@@ -27,7 +27,7 @@ const showHome = (req, res) => {
     dataHandler.getAllExchangesOHCL(exchanges)
         .then((data) => {
             // console.log(exchangesData[0][0].result.XETHZEUR);
-            console.log(data[0].result);
+            // console.log(data[0].result);
             res.render('home', { data });
         })
         .catch((err) => {

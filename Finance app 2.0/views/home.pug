@@ -3,17 +3,35 @@ extends shared/_master
 block body
   div.table-responsive.table-hover
     table.table
-      tbody
-        tr
-          td time
-          td open
-          td high
-          td low
-          td close
-          td vwap
-          td volume
-          td count
-        each exchange in data
+      each exchange in data
+        thead
           tr
-          each pair in exchange.result
-            td= pair.pairName
+            th=exchange.exchange
+        each pair in exchange.result
+          thead
+            tr
+              th=pair.pairName
+            tr
+              th open
+              th high
+              th low
+              th close
+              th BBLower
+              th BBMiddle
+              th BBUpper
+          tbody
+              each opening, i in pair.pairData.openings
+                tr  
+                  -let high = pair.pairData.highests[i];
+                  -let low = pair.pairData.lowests[i];
+                  -let close = pair.pairData.closings[i];
+                  -let BBMiddle = pair.pairData.BB.middleBand[i];
+                  -let BBUpper = pair.pairData.BB.upperBand[i];
+                  -let BBLower = pair.pairData.BB.lowerBand[i];
+                  td= opening
+                  td= high
+                  td= low
+                  td= close
+                  td= BBLower
+                  td= BBMiddle
+                  td= BBUpper
