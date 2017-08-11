@@ -19,90 +19,66 @@ function simpleMovingAverage(data, nPeriod) {
             singleSMA += closings[i + j]
         }
         singleSMA /= nPeriod;
-        SMAArray.push(singleSMA);
+        let result = singleSMA.toFixed(4);
+        SMAArray.push(+result);
     }
-    // console.log(SMAArray);
     return SMAArray;
 };
 
 function deviations(data, nPeriod) {
     const means = simpleMovingAverage(data, nPeriod);
     const closings = data.closings;
-
     const deviationsArrayLength = means.length;
-    const deviationsArray = [];
     const deviationsHistoryArray = [];
     let singleSquareDeviation = null;
-    let fullHistoryNPeriod = [];
-    for (let i = 0; i < deviationsArrayLength; i += 1) {
-        singleSquareDeviation = Math.pow((closings[i] - means[i]), 2);
+    let nPeriodDeviationsArray = [];
 
+    // console.log(closings);
+    // console.log(means);
+    for (let i = 0; i < deviationsArrayLength; i += 1) {
         let historyDeviatons = []
         let singleHistoryDeviation = null;
         for (let j = 0; j <= nPeriod; j += 1) {
-            singleHistoryDeviation = Math.pow((closings[i - j] - means[i - j]), 2);
+            singleHistoryDeviation = Math.pow((closings[i + j] - means[i]), 2);
             if (singleHistoryDeviation) {
-
                 historyDeviatons.push(singleHistoryDeviation);
             }
         }
-        fullHistoryNPeriod.push(historyDeviatons);
-        deviationsArray.push(singleSquareDeviation);
+        nPeriodDeviationsArray.push(historyDeviatons);
     }
-    // console.log(deviationsArray);
-    const result = {
-        lastDeviationsArray: deviationsArray,
-        nPeriodDeviationsArray: fullHistoryNPeriod
-    };
-    return result;
-}
-
-function variances(data, nPeriod) {
-    // const deviationsArr = deviations(data, nPeriod).lastDeviationsArray;
-    const nPeriodDeviationsArray = deviations(data, nPeriod).nPeriodDeviationsArray;
-    const forLength = nPeriodDeviationsArray.length;
-    const variancesArr = [];
-    // console.log(deviationsArr);
     // console.log(nPeriodDeviationsArray);
-    let variance = null;
-    for (let i = 0; i < forLength; i += 1) {
-        variance = arrayAverage(nPeriodDeviationsArray[i]);
-        variancesArr.push(variance);
-    }
-    // console.log(variancesArr);
-    return variancesArr;
+    return nPeriodDeviationsArray;
 }
 
 function standardDeviation(data, nPeriod) {
-    const closings = data.closings;
-    const means = simpleMovingAverage(data, nPeriod);
-    const deviationsArr = deviations(data, nPeriod);
-    const variancesArr = variances(data, nPeriod);
-    // console.log(closings);
-    // console.log(means);
-    // console.log(deviationsArr);
+    const nPeriodDeviationsArray = deviations(data, nPeriod);
+    const forLength = nPeriodDeviationsArray.length;
+    const variancesArr = [];
+    let variance = null;
+    for (let i = 0; i < forLength; i += 1) {
+        variance = arrayAverage(nPeriodDeviationsArray[i]);
+        variancesArr.push(Math.sqrt(variance));
+    }
     // console.log(variancesArr);
-    const standardDeviation = variancesArr.map((variance) => Math.sqrt(variance));
-
-    return standardDeviation;
-}
+    return variancesArr;
+};
 
 function boilengerBands(data, nPeriod) {
     const SMA = simpleMovingAverage(data, nPeriod);
     const SD = standardDeviation(data, nPeriod);
+    // console.log(SD);
     const middleBand = SMA;
     const upperBand = SMA.map((num, idx) => {
-        return num + (SD[idx] * 2)
+        return (num + (SD[idx] * 2)).toFixed(4);
     }).splice(0, middleBand.length);
     const lowerBand = SMA.map((num, idx) => {
-        return num - (SD[idx] * 2)
+        return (num - (SD[idx] * 2)).toFixed(4);
     }).splice(0, middleBand.length);
     const boilengerBands = {
-            middleBand,
-            upperBand,
-            lowerBand
-        }
-        // console.log(boilengerBands);
+        middleBand,
+        upperBand,
+        lowerBand
+    };
     return boilengerBands;
 };
 
