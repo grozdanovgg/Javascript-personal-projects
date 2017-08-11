@@ -20,6 +20,7 @@ block body
               th BBMiddle
               th BBUpper
           tbody
+            if pair.pairData
               each opening, i in pair.pairData.openings
                 tr  
                   -let high = pair.pairData.highests[i];

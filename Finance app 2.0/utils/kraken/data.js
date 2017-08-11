@@ -5,7 +5,22 @@ const config = require('../../config/config');
 const key = '/Wssk/nmVmB8MGRXgYgajq6z26WvCSO7fiNQG5fKl7Bq78bwl6+MfgAu'; // API Key
 const secret = 'TNMOaDROEAODqKNnm4eWG1IOFAhaN37XF55/XbEL+uFPr572zQBBCUxbyJHBjF7lqClz28LJqFzrGK7c8WRy3w=='; // API Private Key
 
+
+const mockKrakenData = {
+    result: {
+        BTCETH: [
+            [1, 1, 2, 3, 1],
+            [1, 2, 3, 4, 2],
+            [1, 3, 4, 5, 3],
+            [1, 4, 5, 6, 4],
+            [1, 5, 6, 7, 5],
+            [1, 6, 7, 8, 6],
+        ]
+    }
+}
+
 function processKrekenData(rawData, pair, interval) {
+    // console.log(rawData);
     const pairKrakenName = Object.getOwnPropertyNames(rawData.result)[0];
     const firstData = rawData.result[pairKrakenName];
     const openings = [];
@@ -14,12 +29,15 @@ function processKrekenData(rawData, pair, interval) {
     const closings = [];
 
     firstData.map((moment) => {
-        openings.push(+moment[1]);
-        highests.push(+moment[2]);
-        lowests.push(+moment[3]);
-        closings.push(+moment[4]);
+        openings.push(+(+moment[1]).toFixed(4));
+        highests.push(+(+moment[2]).toFixed(4));
+        lowests.push(+(+moment[3]).toFixed(4));
+        closings.push(+(+moment[4]).toFixed(4));
     });
-
+    openings.reverse();
+    highests.reverse();
+    lowests.reverse();
+    closings.reverse();
 
     const result = {
         exchange: 'kraken',
@@ -28,9 +46,9 @@ function processKrekenData(rawData, pair, interval) {
         openings,
         highests,
         lowests,
-        closings,
-    }
-
+        closings
+    };
+    // console.log(result);
     const nPeriod = config.indexes.nPeriod;
 
     result.SMA = indexes.SMA(result, nPeriod);
