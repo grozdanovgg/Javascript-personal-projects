@@ -25,6 +25,43 @@ function simpleMovingAverage(data, nPeriod) {
     return SMAArray;
 };
 
+///WOrking on it
+function exponentialMovingAverage(data, nPeriod) {
+    const closingsRaw = data.closings.slice();
+    const closingsLength = closingsRaw.length;
+    const closings = closingsRaw.reverse().slice(nPeriod - 1, closingsLength);
+    const SMAArray = simpleMovingAverage(data, nPeriod);
+    const firstBase = SMAArray[SMAArray.length - 1];
+    let base = null;
+    let firstBaseActive = true;
+    const multiplier = (2 / (nPeriod + 1));
+    const EMAArrayLength = SMAArray.length;
+    const EMAArray = [];
+
+    for (let i = 0; i < EMAArrayLength; i += 1) {
+        if (!firstBaseActive) {
+            // EMA [today] = (Price [today] x K) + (EMA [yesterday] x (1 – K))
+
+            // EMA: {Close - EMA(previous day)} x multiplier + EMA(previous day). 
+
+            console.log(i);
+            console.log(closings[i]);
+            console.log(EMAArray[0]);
+            console.log(multiplier);
+            console.log(EMAArray);
+            console.log('-------');
+            base = (closings[i] * multiplier) + (EMAArray[0] * (1 - multiplier));
+        } else {
+            base = firstBase;
+            firstBaseActive = false;
+        };
+        // console.log(firstBase);
+        // console.log(base);
+        EMAArray.unshift(base);
+    }
+    return EMAArray;
+}
+
 function deviations(data, nPeriod) {
     const means = simpleMovingAverage(data, nPeriod);
     const closings = data.closings;
@@ -83,8 +120,10 @@ function boilengerBands(data, nPeriod) {
 };
 
 
+
 module.exports = {
     SMA: simpleMovingAverage,
     SD: standardDeviation,
     BB: boilengerBands,
+    EMA: exponentialMovingAverage,
 };

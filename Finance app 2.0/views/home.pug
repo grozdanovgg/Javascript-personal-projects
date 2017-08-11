@@ -16,9 +16,12 @@ block body
               th high
               th low
               th close
+              th Standard Deviation
               th BBLower
               th BBMiddle
               th BBUpper
+              th SMA
+              th EMA
           tbody
             if pair.pairData
               each opening, i in pair.pairData.openings
@@ -30,6 +33,8 @@ block body
                   -let BBUpper = pair.pairData.BB.upperBand[i];
                   -let BBLower = pair.pairData.BB.lowerBand[i];
                   -let SD = pair.pairData.SD[i];
+                  -let SMA = pair.pairData.SMA[i];
+                  -let EMA = pair.pairData.EMA[i];
                   td= opening
                   td= high
                   td= low
@@ -38,3 +43,5 @@ block body
                   td= BBLower
                   td= BBMiddle
                   td= BBUpper
+                  td= SMA
+                  td= EMA

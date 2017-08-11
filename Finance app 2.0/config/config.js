@@ -5,7 +5,7 @@ const exchanges = [{
     interval: 1440,
 }];
 const indexes = {
-    nPeriod: 20
+    nPeriod: 10
 }
 
 module.exports = {
