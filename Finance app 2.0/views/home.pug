@@ -22,6 +22,9 @@ block body
               th BBUpper
               th SMA
               th EMA
+              th KCLower
+              th KCMiddle
+              th KCUpper
           tbody
             if pair.pairData
               each opening, i in pair.pairData.openings
@@ -35,6 +38,9 @@ block body
                   -let SD = pair.pairData.SD[i];
                   -let SMA = pair.pairData.SMA[i];
                   -let EMA = pair.pairData.EMA[i];
+                  -let KCLower = pair.pairData.KC.lowerKC[i];
+                  -let KCMiddle = pair.pairData.KC.middleKC[i];
+                  -let KCUpper = pair.pairData.KC.upperKC[i];
                   td= opening
                   td= high
                   td= low
@@ -45,3 +51,6 @@ block body
                   td= BBUpper
                   td= SMA
                   td= EMA
+                  td= KCLower
+                  td= KCMiddle
+                  td= KCUpper
