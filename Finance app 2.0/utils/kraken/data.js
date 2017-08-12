@@ -159,10 +159,10 @@ function processKrekenData(rawData, pair, interval) {
 const get = {
     OHLC: async(pair, interval) => {
         try {
-            // const kraken = new KrakenClient(key, secret);
-            // // @ts-ignore
-            // const rawData = await kraken.api('OHLC', { pair, interval });
-            const result = processKrekenData(mockKrakenData, pair, interval);
+            const kraken = new KrakenClient(key, secret);
+            // @ts-ignore
+            const rawData = await kraken.api('OHLC', { pair, interval });
+            const result = processKrekenData(rawData, pair, interval);
             return result;
         } catch (err) {
             console.log('in the error of kraken util, OHLC method');

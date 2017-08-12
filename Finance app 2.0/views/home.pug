@@ -28,7 +28,7 @@ block body
           tbody
             if pair.pairData
               each opening, i in pair.pairData.openings
-                tr  
+                tr
                   -let high = pair.pairData.highests[i];
                   -let low = pair.pairData.lowests[i];
                   -let close = pair.pairData.closings[i];
@@ -41,6 +41,15 @@ block body
                   -let KCLower = pair.pairData.KC.lowerKC[i];
                   -let KCMiddle = pair.pairData.KC.middleKC[i];
                   -let KCUpper = pair.pairData.KC.upperKC[i];
+                  - if(KCUpper){
+                    -const decimals = 2;
+                    -SD = SD.toFixed(decimals);
+                    -SMA = SMA.toFixed(decimals);
+                    -EMA=EMA.toFixed(decimals);
+                    -KCLower = KCLower.toFixed(decimals);
+                    -KCMiddle = KCMiddle.toFixed(decimals);
+                    -KCUpper = KCUpper.toFixed(decimals);
+                  -}
                   td= opening
                   td= high
                   td= low

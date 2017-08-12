@@ -150,7 +150,6 @@ function averageTrueRange(data, nPeriod) {
         }
         ATRArray.unshift(singleATR);
     }
-    console.log(ATRArray);
     return ATRArray;
 }
 
@@ -172,7 +171,6 @@ function keltnerChannels(data, nPeriod) {
         lowerKC,
         upperKC
     };
-    // console.log(result);
     return result;
 }
 module.exports = {
