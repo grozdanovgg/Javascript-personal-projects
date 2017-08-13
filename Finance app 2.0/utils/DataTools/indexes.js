@@ -155,7 +155,7 @@ function averageTrueRange(data, nPeriod) {
 
 function keltnerChannels(data, nPeriod) {
     const EMA = exponentialMovingAverage(data, nPeriod);
-    const ATR = averageTrueRange(data, (nPeriod / 2));
+    const ATR = averageTrueRange(data, +(nPeriod / 2).toFixed(0));
     const upperKC = [];
     const lowerKC = [];
     let singleUpperKC = null;
