@@ -8,6 +8,7 @@ import { configCV } from './config/config-main';
 import { HighlightModule, HighlightOptions } from 'ngx-highlightjs';
 import { EyesComponent } from './eyes/eyes.component';
 import { DrowEyeService } from './services/drow-eye.service';
+import { NavbarComponent } from './navbar/navbar.component';
 
 const options: HighlightOptions = {
   theme: configCV.theme
@@ -16,7 +17,8 @@ const options: HighlightOptions = {
   declarations: [
     AppComponent,
     CvComponent,
-    EyesComponent
+    EyesComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

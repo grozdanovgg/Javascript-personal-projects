@@ -1,16 +1,19 @@
 <div class="container">
+
   <div class="header">
-    <code class="typedtext">
-      {{customText}}
-    </code>
+    <app-eyes></app-eyes>
+    <div class="sub-header">
+      <code class="typedtext">
+        {{customText}}
+      </code>
+    </div>
   </div>
 
-  <div class="cv">
-    <div class="cv-title">
-      <app-eyes></app-eyes>
-    </div>
+  <div class="body">
+    <app-navbar></app-navbar>
     <pre>
       <code class="cv-code" highlight [code]="CVCode"></code>
     </pre>
   </div>
+
 </div>

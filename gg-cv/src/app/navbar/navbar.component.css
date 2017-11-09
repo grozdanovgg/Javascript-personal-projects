@@ -1,0 +1,32 @@
+.navbar {
+    top: 0px;
+    right: 5px;
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top:2rem;
+    margin-bottom: 0;
+  }
+
+.nav-button {    
+	background-color:white;
+	border-radius:10px;
+	border:1px solid gray;
+    
+    text-decoration: none;
+    text-align: center;
+	cursor:pointer;
+	color:gray;
+    padding:10px 10px;
+    margin: 5px;
+	text-shadow:0px 1px 0px gray;
+}
+.nav-button:hover {
+    background-color:gray;
+    color: black
+}
+.nav-button:active {
+	position:relative;
+	top:1px;
+}

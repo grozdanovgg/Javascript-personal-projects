@@ -6,7 +6,6 @@
     order: 2;
     width: 210px;
     height: 208px;
-    /* position: relative; */
     margin: auto;
     text-align: center;
     background-repeat: no-repeat;
@@ -37,3 +36,9 @@
     background-position: right bottom;
     background-image: url("../../assets/man/man_hand_right-medium.png");
 }
+
+@media  screen and (max-width: 340px) {
+    .left-hand, .right-hand {
+        display: none;
+    }
+  }
