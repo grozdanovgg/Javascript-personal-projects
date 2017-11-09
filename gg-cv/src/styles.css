@@ -6,7 +6,7 @@
     0%   {background-color: #73bbff;}
     10% {background-color: #54e61b;}
     30%  {background-color: #f05912;}
-    50%  {background-color: #c95f87;}
+    50%  {background-color: #b44c32;}
     70% {background-color: #df1e48;}
     90% {background-color: #e6e31b;}
     100% {background-color: #73bbff;}
@@ -16,5 +16,6 @@ body{
     animation-name: example;
     animation-duration: 60s;
     animation-iteration-count: infinite;
+    animation-delay: 3s;
 }
 

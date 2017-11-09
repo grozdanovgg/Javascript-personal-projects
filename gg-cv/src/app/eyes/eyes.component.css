@@ -1,0 +1,39 @@
+
+.man {
+    display: flex;
+}
+.head {
+    order: 2;
+    width: 210px;
+    height: 208px;
+    /* position: relative; */
+    margin: auto;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url("../../assets/man/man_face-small.png"); 
+  }
+
+.left-hand {
+    order:1;
+    flex-grow: 1;
+    height: 208px;
+    position: relative;
+    margin: auto;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-image: url("../../assets/man/man_hand_left-medium.png"); 
+}
+
+.right-hand { 
+    order: 3;
+    flex-grow: 1;
+    height: 208px;
+    position: relative;
+    margin: auto;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    background-image: url("../../assets/man/man_hand_right-medium.png");
+}

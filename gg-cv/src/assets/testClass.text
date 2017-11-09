@@ -13,7 +13,8 @@ applicant.softwareSkills = [
     { name: 'CSS', level: 9 },
     { name: 'Git', level: 9 },
     { name: 'jQuery', level: 7 },
-    { name: 'Regex', level: 6 }
+    { name: 'Regex', level: 6 },
+    { name: 'AWS, Heroku, Firebase deployment', level: 8 }
 ];
 
 applicant.education = [
@@ -42,26 +43,26 @@ applicant.experience = [
         startPeriod: 2015,
         endPeriod: 2016,
         benefits:
-        [
-            'Developing a solution for crowdfunding system for buildings',
-            'More than 20 partnerships in the field of software development, realestate, marketing, business-development',
-            'Researched deeply 4 foreign markets for potential expansion',
-            'Thorough examination of every aspect of construction and investment process',
-            'Development of legal, marketing and financial aspects of the company',
-            'Organizing a team'
-        ]
+            [
+                'Developing a solution for crowdfunding system for buildings',
+                'More than 20 partnerships in the field of software development, realestate, marketing, business-development',
+                'Researched deeply 4 foreign markets for potential expansion',
+                'Thorough examination of every aspect of construction and investment process',
+                'Development of legal, marketing and financial aspects of the company',
+                'Organizing a team'
+            ]
     },
     {
         name: 'Architect',
         startPeriod: 2007,
         endPeriod: 2017,
         benefits:
-        [
-            'Project Management, Architectural Design',
-            'Coordination and project management',
-            'Interior design projects',
-            '3D Visualizations'
-        ]
+            [
+                'Project Management, Architectural Design',
+                'Coordination and project management',
+                'Interior design projects',
+                '3D Visualizations'
+            ]
     }
 ];
 
@@ -95,7 +96,8 @@ applicant.personality = [
 
 applicant.passion = [
     'Software development',
-    'Hi-tec', 'Innovation',
+    'Hi-tec',
+    'Innovation',
     'Architecture / Design',
     'Self development',
     'Photography',

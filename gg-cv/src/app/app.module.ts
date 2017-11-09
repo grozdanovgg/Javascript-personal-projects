@@ -3,22 +3,26 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { CvComponent } from './cv/cv.component';
+import { configCV } from './config/config-main';
 
 import { HighlightModule, HighlightOptions } from 'ngx-highlightjs';
+import { EyesComponent } from './eyes/eyes.component';
+import { DrowEyeService } from './services/drow-eye.service';
 
 const options: HighlightOptions = {
-  theme: 'monokai',
+  theme: configCV.theme
 };
 @NgModule({
   declarations: [
     AppComponent,
-    CvComponent
+    CvComponent,
+    EyesComponent
   ],
   imports: [
     BrowserModule,
     HighlightModule.forRoot(options)
   ],
-  providers: [],
+  providers: [DrowEyeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

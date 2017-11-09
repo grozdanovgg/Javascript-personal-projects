@@ -5,7 +5,12 @@ export const configTypewriter = {
 };
 
 export const configCV = {
-    title: 'CV data:'
+    title: 'CV data:',
+    theme: 'monokai-sublime'
+};
+
+export const eyes = {
+    number: 100
 };
 
 

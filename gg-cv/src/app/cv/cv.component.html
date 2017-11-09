@@ -1,12 +1,16 @@
-<div class="joke-box">
-  <code class="typedtext">
-    {{customText}}
-  </code>
+<div class="container">
+  <div class="header">
+    <code class="typedtext">
+      {{customText}}
+    </code>
+  </div>
+
+  <div class="cv">
+    <div class="cv-title">
+      <app-eyes></app-eyes>
+    </div>
+    <pre>
+      <code class="cv-code" highlight [code]="CVCode"></code>
+    </pre>
+  </div>
 </div>
-
-
-<!-- Highlight target element -->
-<pre>
-    <h1>{{title}}</h1>
-  <code class="cv-code" highlight [code]="CVCode"></code>
-</pre>

@@ -20,7 +20,7 @@ export class CvComponent implements OnInit, AfterViewInit {
     this.typeWriter(configTypewriter.text, configTypewriter.speed);
   }
   ngAfterViewInit(): void {
-    fetch('../../assets/testClass.ts')
+    fetch('../../assets/testClass.text')
       .then(file => file.text())
       .then(responce => this.CVCode = responce);
   }
@@ -34,6 +34,7 @@ export class CvComponent implements OnInit, AfterViewInit {
     this.customText = sContents + text.substring(0, textPos) + '_';
     textPos += 1;
     if (textPos - 1 === text.length) {
+      this.customText = this.customText.slice(0, textPos);
       return;
     } else {
       setTimeout(() => { this.typeWriterHelper(text, textPos, speed); }, speed);
