@@ -1,7 +1,29 @@
-.cv {
-    font-family: 'Waiting for the Sunrise', cursive; 
-    font-size:30px; 
-    margin: 10px 50px; 
-    letter-spacing: 6px; 
-    font-weight: bold;
-  }
+.cv-code, .joke-box {
+  text-align:left;
+  border: solid #e9e9e9 8px;
+  border-radius: 8px;
+}
+
+.joke-box{
+  min-height: 3rem;
+  padding: 1.5rem;
+}
+.typedtext{
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.cv-code {
+  position: relative;
+  animation-name: popup;
+  animation-duration: 3s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease;
+}
+
+@keyframes popup {
+  0%   {top:-1000px;}
+  33%  {top:100px;}
+  67%  {top:-10px;}
+  100%  {top:0px;}
+}

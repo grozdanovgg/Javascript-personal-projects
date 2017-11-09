@@ -1,0 +1,214 @@
+const applicant = new JobSeeker('Georgi', 'Grozdanov', Sex.Male, 1987);
+
+applicant.softwareSkills = [
+    { name: 'Angular', level: 7 },
+    { name: 'JavaScript', level: 8 },
+    { name: 'Node.js', level: 7 },
+    { name: 'Express', level: 6 },
+    { name: 'c#', level: 4 },
+    { name: 'MongoDB', level: 6 },
+    { name: 'Photoshop', level: 9 },
+    { name: 'TypeScript', level: 8 },
+    { name: 'HTML', level: 9 },
+    { name: 'CSS', level: 9 },
+    { name: 'Git', level: 9 },
+    { name: 'jQuery', level: 7 },
+    { name: 'Regex', level: 6 }
+];
+
+applicant.education = [
+    {
+        name: 'Front-End Development - Telerik Academy - graduated with excelence',
+        startPeriod: 2016,
+        endPeriod: 2017,
+        benefits: ['Gaining software development skills', 'Integrated in strong dev comunity']
+    },
+    {
+        name: 'Architecture',
+        startPeriod: 2006,
+        endPeriod: 2012,
+        benefits: ['Graphic design skills', 'Project management skills', 'Organisation']
+    },
+    {
+        name: 'Highschool',
+        startPeriod: 2001,
+        endPeriod: 2006,
+        benefits: ['Italian language', 'Comunication skills', 'Freedom']
+    }];
+
+applicant.experience = [
+    {
+        name: 'Founder of BuildFunding',
+        startPeriod: 2015,
+        endPeriod: 2016,
+        benefits:
+        [
+            'Developing a solution for crowdfunding system for buildings',
+            'More than 20 partnerships in the field of software development, realestate, marketing, business-development',
+            'Researched deeply 4 foreign markets for potential expansion',
+            'Thorough examination of every aspect of construction and investment process',
+            'Development of legal, marketing and financial aspects of the company',
+            'Organizing a team'
+        ]
+    },
+    {
+        name: 'Architect',
+        startPeriod: 2007,
+        endPeriod: 2017,
+        benefits:
+        [
+            'Project Management, Architectural Design',
+            'Coordination and project management',
+            'Interior design projects',
+            '3D Visualizations'
+        ]
+    }
+];
+
+applicant.achievements = [
+    '2nd Price (among 60+ projects) Sustainable homes - MILD Home - 2014',
+    '"The special award" (5 from 1000+ students) of International Competition "Isover MultiComfort House" - 2012'];
+
+applicant.languages = [{ name: 'English', level: 7 }, { name: 'Italian', level: 7 }, { name: 'German', level: 2 }];
+
+applicant.personality = [
+    {
+        name: 'Accuracy and attention to detail',
+        description: 'As a result of my experience as an architect and designer certified Passive Houses'
+    },
+    {
+        name: 'Analytical thinking',
+        description: 'As a result of mathematical focus of education from NationalSchool of Culture',
+    },
+    {
+        name: 'Striving for innovation',
+        description: 'Internal desire to improve myself and the environment in which we find inhabit',
+    },
+    {
+        name: 'Decision making',
+        description: 'Calm and not emotionally influenced decisions, from my experience in MVISIA and aXYstudio'
+    },
+    {
+        name: 'Communicative',
+        description: 'From the contacts made in the business environment during my work in BUILDFUNDING'
+    }];
+
+applicant.passion = [
+    'Software development',
+    'Hi-tec', 'Innovation',
+    'Architecture / Design',
+    'Self development',
+    'Photography',
+    'Travel',
+    'Energy efficiency',
+    'Motorsports',
+    'Movies'];
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+interface IHuman {
+    firstName: string;
+    lastName: string;
+    sex: Sex;
+}
+
+class JobSeeker implements IHuman {
+    readonly fullName: string;
+    private _yearOfBirth: number;
+    private _languages: ISkill[];
+    private _education: IExperience[];
+    private _experience: IExperience[];
+    private _achievements: string[];
+    private _softwareSkills: ISkill[];
+    private _personality: IDescription[];
+    private _passion: string[];
+
+    constructor(readonly firstName: string, readonly lastName: string, readonly sex: Sex, yearOfBirth: number) {
+
+        this.fullName = `${firstName} ${lastName}`;
+        this.yearOfBirth = yearOfBirth;
+    }
+
+    get yearOfBirth(): number {
+        return this._yearOfBirth;
+    }
+    set yearOfBirth(year: number) {
+        if (year < 1900 || year > 2017) {
+            throw Error('Year format is incorrect');
+        }
+        this._yearOfBirth = year;
+    }
+
+    get languages(): ISkill[] {
+        return this._languages;
+    }
+    set languages(languages: ISkill[]) {
+        this._languages = languages;
+    }
+
+    get education(): IExperience[] {
+        return this._education;
+    }
+    set education(education: IExperience[]) {
+        this._education = education;
+    }
+
+    get experience(): IExperience[] {
+        return this._experience;
+    }
+    set experience(experience: IExperience[]) {
+        this._experience = experience;
+    }
+
+    get achievements(): string[] {
+        return this._achievements;
+    }
+    set achievements(achievements: string[]) {
+        this._achievements = achievements;
+    }
+
+    get softwareSkills(): ISkill[] {
+        return this._softwareSkills;
+    }
+    set softwareSkills(softwareSkills: ISkill[]) {
+        this._softwareSkills = softwareSkills;
+    }
+
+    get personality(): IDescription[] {
+        return this._personality;
+    }
+    set personality(personality: IDescription[]) {
+        this._personality = personality;
+    }
+
+    get passion(): string[] {
+        return this._passion;
+    }
+    set passion(passion: string[]) {
+        this._passion = passion;
+    }
+}
+
+interface ISkill {
+    name: string;
+    level: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+}
+
+interface IExperience {
+    name: string;
+    startPeriod: number;
+    endPeriod: number;
+    benefits: string[];
+}
+
+interface IDescription {
+    name: string;
+    description: string;
+}
+
+enum Sex {
+    Male,
+    Female
+}
+

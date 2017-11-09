@@ -1,6 +1,12 @@
-<div class="cv">
-  <div class="typedtext">{{customText}}</div>
+<div class="joke-box">
+  <code class="typedtext">
+    {{customText}}
+  </code>
 </div>
 
+
 <!-- Highlight target element -->
-<pre><code highlight [code]="someCode"></code></pre>
+<pre>
+    <h1>{{title}}</h1>
+  <code class="cv-code" highlight [code]="CVCode"></code>
+</pre>

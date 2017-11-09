@@ -6,9 +6,9 @@ import { CvComponent } from './cv/cv.component';
 
 import { HighlightModule, HighlightOptions } from 'ngx-highlightjs';
 
-// const options: HighlightOptions = {
-//   theme: 'monokai-sublime'
-// };
+const options: HighlightOptions = {
+  theme: 'monokai',
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +16,7 @@ import { HighlightModule, HighlightOptions } from 'ngx-highlightjs';
   ],
   imports: [
     BrowserModule,
-    HighlightModule.forRoot()
+    HighlightModule.forRoot(options)
   ],
   providers: [],
   bootstrap: [AppComponent]

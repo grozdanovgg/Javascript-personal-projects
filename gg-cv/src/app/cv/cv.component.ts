@@ -1,36 +1,44 @@
 import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
+import { configTypewriter, configCV } from '../config/config-main';
 
 @Component({
   selector: 'app-cv',
   templateUrl: './cv.component.html',
   styleUrls: ['./cv.component.css']
 })
-export class CvComponent implements OnInit {
+export class CvComponent implements OnInit, AfterViewInit {
   protected customText: string;
 
-  protected someCode =
-  `class Developer implements IHuman {
-    private test;
-  }`;
+  protected CVCode = '';
+
+  protected title = configCV.title;
 
   constructor() {
   }
 
   ngOnInit() {
-    const text = 'There are only 10 types of people in the world: Those who understand binary, and those who don\'t';
+    this.typeWriter(configTypewriter.text, configTypewriter.speed);
+  }
+  ngAfterViewInit(): void {
+    fetch('../../assets/testClass.ts')
+      .then(file => file.text())
+      .then(responce => this.CVCode = responce);
+  }
+  private typeWriter(text, speed) {
     const textPos = 0; // initialise text position
-    const speed = 80; // time delay of print out
-    this.typewriter(text, textPos, speed);
+    this.typeWriterHelper(text, textPos, speed);
   }
 
-  private typewriter(text, textPos, speed) {
+  private typeWriterHelper(text, textPos, speed) {
     const sContents = ' ';
     this.customText = sContents + text.substring(0, textPos) + '_';
     textPos += 1;
     if (textPos - 1 === text.length) {
       return;
     } else {
-      setTimeout(() => { this.typewriter(text, textPos, speed); }, speed);
+      setTimeout(() => { this.typeWriterHelper(text, textPos, speed); }, speed);
     }
   }
 }
+
+
