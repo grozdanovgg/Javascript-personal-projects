@@ -18,13 +18,14 @@ export class WeatherService {
 
   private rawForecastData: HoursData[];
   private weatherBaseUrl = // URL to web api
-    'http://api.apixu.com/v1/forecast.json?key=29d83fa2298a47d29bb121845161212&days=3&q=';
+    '/api/v1/weather/';
 
   public getWeatherData(city): Observable<WeatherDataModelV1> {
+    console.log(`${this.weatherBaseUrl}${city}`);
     return this.http.get(`${this.weatherBaseUrl}${city}`)
-      .do((res) => {
-        console.log(res);
-        this.weatherData = res;
+      .do((res: { results }) => {
+        this.weatherData = res.results;
+        console.log(this.weatherData);
         this.cityName = this.weatherData.location.name;
         this.localDateTime = this.weatherData.location.localtime;
         this.conditionText = this.weatherData.current.condition.text;

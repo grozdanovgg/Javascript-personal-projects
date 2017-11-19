@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -10,6 +11,41 @@ import { CityWeatherComponent } from './weather/city-weather/city-weather.compon
 import { LocationForecastComponent } from './weather/city-forecast/location-forecast.component';
 import { Routes, RouterModule } from '@angular/router';
 import { DatePipe } from '@angular/common';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatStepperModule,
+} from '@angular/material';
 
 const routes: Routes = [
   { path: '', component: WeatherComponent },
@@ -29,7 +65,40 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
+    FormsModule,
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatStepperModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
   ],
   providers: [WeatherService, DatePipe],
   bootstrap: [AppComponent]

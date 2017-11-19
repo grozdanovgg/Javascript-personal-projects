@@ -13,7 +13,7 @@ import { Output } from '@angular/core/src/metadata/directives';
 export class CityWeatherComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
-    private weatherService: WeatherService,
+    public weatherService: WeatherService,
     private router: Router) { }
 
   goTo48HoursForecast(cityName) {

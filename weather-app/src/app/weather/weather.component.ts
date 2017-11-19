@@ -13,17 +13,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./weather.component.css']
 })
 export class WeatherComponent implements OnInit {
-  weatherData: WeatherDataModelV1;
 
+  currentCity: string;
   private currentPosition: { lat: number, long: number };
-  private currentCity: string;
 
-  constructor(private weatherService: WeatherService, private router: Router) { }
+  constructor(public weatherService: WeatherService, private router: Router) { }
 
-  ngOnInit() {
-
-
-  }
+  ngOnInit() { }
 
   public goToCity(selected) {
     this.router.navigate(['/location/' + selected]);
@@ -37,9 +33,7 @@ export class WeatherComponent implements OnInit {
           this.weatherService.getWeatherData(`${this.currentPosition.lat},${this.currentPosition.long}`)
             .subscribe((weatherData) => {
               // this.weatherData = weatherData;
-              this.currentCity = weatherData.location.name;
-              console.log(weatherData);
-              console.log(this.currentCity);
+              this.currentCity = this.weatherService.cityName;
             },
             err => console.log(err) // Handle err when no Location found;
             );
@@ -48,18 +42,6 @@ export class WeatherComponent implements OnInit {
       );
     }
   }
-  // public search(cityName) {
-  //   this.weatherService.city(cityName)
-  //     .subscribe((weatherData) => {
-  //       this.weatherData = weatherData;
-
-  //       this.currentCity = weatherData.location.name;
-  //       console.log(weatherData);
-  //       console.log(this.currentCity);
-  //     },
-  //     err => console.log(err) // Handle err when no city found;
-  //     );
-  // }
 }
 
 

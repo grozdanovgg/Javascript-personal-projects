@@ -10,7 +10,7 @@ import { WeatherDataModelV1 } from '../../models/weatherDataModelV1';
 })
 export class LocationForecastComponent implements OnInit {
   currentLocationName: string;
-  constructor(private activatedRoute: ActivatedRoute, private weatherService: WeatherService) { }
+  constructor(private activatedRoute: ActivatedRoute, public weatherService: WeatherService) { }
 
   ngOnInit() {
     // If user acces the route directly, then
