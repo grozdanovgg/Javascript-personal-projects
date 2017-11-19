@@ -1,0 +1,11 @@
+<div class="weather-container">
+  <p>Enter name of a city and press search:</p>
+  <input type="text" name="location" id="location-input" value={{currentCity}} #locationToSearch>
+
+  <button (click)="getCurrentLocationData()" type="button">Get location</button>
+  <button (click)="goToCity(locationToSearch.value)" type="search">Search</button>
+</div>
+
+
+
+<!-- <app-city-weather></app-city-weather> -->
