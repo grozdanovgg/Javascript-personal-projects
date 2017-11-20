@@ -24,8 +24,8 @@ export class WeatherService {
   public getWeatherData(city): Observable<WeatherDataModelV1> {
     return this.http.get(`${this.weatherBaseUrl}${city}`)
       .do((res: { results }) => {
+        console.log(res);
         this.weatherData = res.results;
-        // console.log(this.weatherData);
         this.cityName = this.weatherData.location.name;
         this.localDateTime = this.weatherData.location.localtime;
         this.localUnixTime = this.weatherData.location.localtime_epoch;
