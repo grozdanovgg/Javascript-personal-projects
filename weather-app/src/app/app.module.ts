@@ -1,3 +1,4 @@
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -46,6 +47,8 @@ import {
   MatTooltipModule,
   MatStepperModule,
 } from '@angular/material';
+// import { CustomBreakPointsProvider } from './custom-breakpoints';
+
 
 const routes: Routes = [
   { path: '', component: WeatherComponent },
@@ -68,6 +71,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     FormsModule,
+    FlexLayoutModule,
     MatAutocompleteModule,
     MatButtonModule,
     MatButtonToggleModule,

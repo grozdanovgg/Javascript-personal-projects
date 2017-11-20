@@ -1,14 +1,27 @@
 <mat-card-content>
-    <div #currentCityName>{{weatherService.cityName}}</div>
-    <div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h1 #currentCityName>{{weatherService.cityName}}</h1>
         <img src={{weatherService.conditionIconUrl}} alt="">
+        <h1>{{weatherService.temperature}}&deg;</h1>
     </div>
-    <div>Temperature: {{weatherService.temperature}}&deg;</div>
-    <div>Local date and time: {{weatherService.localDateTime}}</div>
-    <div>Condition: {{weatherService.conditionText}}</div>
-    <div>Feels like: {{weatherService.feelsLike}}&deg;</div>
-    <div>Wind speed: {{weatherService.windSpeed}}km/h</div>
-    <div>Humidity: {{weatherService.humidity}}%</div>
+    <h4>{{weatherService.localUnixTime * 1000 | date:'HH:mm, EEEE d MMM yyyy'}}</h4>
+    <h4>{{weatherService.conditionText}}</h4>
+    <div fxLayout="row" fxLayoutAlign="space-between">
+        <h3>Feels like:</h3>
+        <h3>{{weatherService.feelsLike}}&deg;</h3>
+    </div>
+    <!-- <div fxLayout="row" fxLayoutAlign="space-between">
+        <h3>Temperature:</h3>
+        <h3>{{weatherService.temperature}}&deg;</h3>
+    </div> -->
+    <div fxLayout="row" fxLayoutAlign="space-between">
+        <h3>Wind speed:</h3>
+        <h3>{{weatherService.windSpeed}}km/h</h3>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between">
+        <h3>Humidity:</h3>
+        <h3>{{weatherService.humidity}}%</h3>
+    </div>
 </mat-card-content>
 
 <mat-card-actions>

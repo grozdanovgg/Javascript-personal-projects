@@ -1,9 +1,9 @@
-<div id="root">
-    <mat-card class="example-card">
-        <!-- Header here -->
-        <app-header></app-header>
-        <!-- Toastr notifications here -->
+<div id="root" fxLayoutAlign="space-around center">
+    <mat-card class="weather-card" fxLayout="column" fxLayoutAlign="space-around center">
         <div id="content">
+            <!-- Header here -->
+            <app-header></app-header>
+            <!-- Toastr notifications here -->
             <router-outlet></router-outlet>
         </div>
     </mat-card>

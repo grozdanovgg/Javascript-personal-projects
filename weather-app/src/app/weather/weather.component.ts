@@ -32,7 +32,7 @@ export class WeatherComponent implements OnInit {
           this.weatherService.getWeatherData(`${this.currentPosition.lat},${this.currentPosition.long}`)
             .subscribe((weatherData) => {
               this.currentCity = this.weatherService.cityName;
-              this.router.navigate(['/location/' + this.currentCity]);
+              // this.router.navigate(['/location/' + this.currentCity]);
             },
             err => console.log(err) // Handle err when no Location found;
             );

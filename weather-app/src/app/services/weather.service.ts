@@ -9,6 +9,7 @@ export class WeatherService {
   public forecastData: HoursData[];
   public cityName: string;
   public localDateTime: string;
+  public localUnixTime: number;
   public conditionText: string;
   public conditionIconUrl: string;
   public temperature: number;
@@ -27,6 +28,7 @@ export class WeatherService {
         // console.log(this.weatherData);
         this.cityName = this.weatherData.location.name;
         this.localDateTime = this.weatherData.location.localtime;
+        this.localUnixTime = this.weatherData.location.localtime_epoch;
         this.conditionText = this.weatherData.current.condition.text;
         this.conditionIconUrl = this.weatherData.current.condition.icon;
         this.temperature = this.weatherData.current.temp_c;

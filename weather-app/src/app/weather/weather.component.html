@@ -1,14 +1,26 @@
-<mat-card-content>
-  <p>Enter name of a city and press search:</p>
+<mat-card-content fxLayout="column">
 
-  <button (click)="getCurrentLocationData()" type="button" mat-mini-fab>
-    <i class="material-icons">my_location</i>
-  </button>
+  <p fxFlexAlign="center">Enter name of a city and press search:</p>
 
-  <form (submit)="goToCity(locationToSearch.value)">
-    <mat-form-field>
-      <input matInput type="text" placeholder="Enter location" value={{currentCity}} #locationToSearch/>
-    </mat-form-field>
-    <button type="submit" mat-raised-button>Search</button>
+  <form (submit)="goToCity(locationToSearch.value)" fxLayout="column">
+    <div fxLayout="row">
+      <button class="getLocationButton" (click)="getCurrentLocationData()" type="button" mat-mini-fab>
+        <i class="material-icons">my_location</i>
+      </button>
+      <mat-form-field>
+        <input matInput type="text" placeholder="Enter location" value={{currentCity}} #locationToSearch/>
+      </mat-form-field>
+    </div>
+    <button class="submit" type="submit" mat-raised-button>Search</button>
   </form>
 </mat-card-content>
+
+<!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center">
+  <button md-button>text</button>
+  <button md-button>text</button>
+  <button md-button>text</button>
+  <button md-button>text</button>
+  <button md-button>text</button>
+  <button md-button>text</button>
+  <button md-button>text</button>
+</div> -->
