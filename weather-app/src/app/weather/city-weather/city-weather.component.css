@@ -1,4 +1,17 @@
-h1,h2,h3{
+h1,h2,h3,p{
     margin-top: 0.3rem;
     margin-bottom: 0.3rem;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.current-temp {
+    font-size: 4rem;
+    /* margin: 0 1rem 0 1rem; */
+    padding: 0 1rem 0 1rem;
+}
+.condition-image {
+    padding-top: 1rem;
 }

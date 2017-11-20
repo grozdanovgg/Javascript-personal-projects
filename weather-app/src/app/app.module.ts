@@ -12,6 +12,7 @@ import { CityWeatherComponent } from './weather/city-weather/city-weather.compon
 import { LocationForecastComponent } from './weather/city-forecast/location-forecast.component';
 import { Routes, RouterModule } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { UpperCasePipe } from '@angular/common';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -104,7 +105,7 @@ const routes: Routes = [
     MatToolbarModule,
     MatTooltipModule,
   ],
-  providers: [WeatherService, DatePipe],
+  providers: [WeatherService, DatePipe, UpperCasePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

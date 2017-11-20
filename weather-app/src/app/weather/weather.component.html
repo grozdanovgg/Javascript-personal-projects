@@ -2,8 +2,8 @@
 
   <p fxFlexAlign="center">Enter name of a city and press search:</p>
 
-  <form (submit)="goToCity(locationToSearch.value)" fxLayout="column">
-    <div fxLayout="row">
+  <form (submit)="goToCity(locationToSearch.value)" fxLayout="column" fxLayoutAlign="center center">
+    <div fxLayout="row" fxLayoutAlign="center center">
       <button class="getLocationButton" (click)="getCurrentLocationData()" type="button" mat-mini-fab>
         <i class="material-icons">my_location</i>
       </button>

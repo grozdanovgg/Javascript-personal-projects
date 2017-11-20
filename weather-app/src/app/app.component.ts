@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'weather-app';
+  innerHeight: any;
+  innerWidth: any;
+  constructor() {
+    this.innerHeight = ((window.screen.height) - 16) + 'px';
+    this.innerWidth = ((window.screen.width) - 16) + 'px';
+  }
 }

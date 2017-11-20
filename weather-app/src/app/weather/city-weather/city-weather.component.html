@@ -1,11 +1,14 @@
 <mat-card-content>
-    <div fxLayout="row" fxLayoutAlign="space-between center">
-        <h1 #currentCityName>{{weatherService.cityName}}</h1>
-        <img src={{weatherService.conditionIconUrl}} alt="">
-        <h1>{{weatherService.temperature}}&deg;</h1>
+    <h1 #currentCityName class="text-center">{{weatherService.cityName}}</h1>
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <img class="condition-image" src={{weatherService.conditionIconUrl}} alt="">
+        <h1 class="current-temp">{{weatherService.temperature}}</h1>
+        <h1 class="current-temp-mu">&deg;C</h1>
     </div>
-    <h4>{{weatherService.localUnixTime * 1000 | date:'HH:mm, EEEE d MMM yyyy'}}</h4>
-    <h4>{{weatherService.conditionText}}</h4>
+    <div fxLayout="column" fxLayoutAlign="start center">
+        <h2>{{weatherService.conditionText}}</h2>
+        <p>last updated on: {{weatherService.localUnixTime * 1000 | date:'HH:mm, EEEE d MMM yyyy'}}</p>
+    </div>
     <div fxLayout="row" fxLayoutAlign="space-between">
         <h3>Feels like:</h3>
         <h3>{{weatherService.feelsLike}}&deg;</h3>
@@ -24,6 +27,6 @@
     </div>
 </mat-card-content>
 
-<mat-card-actions>
+<mat-card-actions fxLayout="row" fxLayoutAlign="center center">
     <button (click)="goTo48HoursForecast(currentCityName.textContent)" type="button" mat-raised-button>48 Hours Forecast</button>
 </mat-card-actions>

@@ -1,6 +1,6 @@
-<div id="root" fxLayoutAlign="space-around center">
-    <mat-card class="weather-card" fxLayout="column" fxLayoutAlign="space-around center">
-        <div id="content">
+<div id="root">
+    <mat-card class="weather-card" [ngStyle]="{'height': innerHeight}" fxLayout="column" fxLayoutAlign="start stretch">
+        <div class="card-content">
             <!-- Header here -->
             <app-header></app-header>
             <!-- Toastr notifications here -->

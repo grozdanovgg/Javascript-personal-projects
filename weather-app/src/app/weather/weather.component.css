@@ -1,3 +1,8 @@
 .getLocationButton{
     margin-right: 1rem;
 }
+
+.submit {
+    margin-top: 1rem;
+    width: 240px;
+}
