@@ -49,6 +49,8 @@ import {
   MatStepperModule,
 } from '@angular/material';
 // import { CustomBreakPointsProvider } from './custom-breakpoints';
+import { BREAKPOINTS } from '@angular/flex-layout';
+import { CUSTOM_BREAKPOINT_FACTORY } from './custom-breakpoints.component';
 
 
 const routes: Routes = [
@@ -105,7 +107,14 @@ const routes: Routes = [
     MatToolbarModule,
     MatTooltipModule,
   ],
-  providers: [WeatherService, DatePipe, UpperCasePipe],
+  providers: [
+    WeatherService,
+    DatePipe,
+    UpperCasePipe,
+    {
+      provide: BREAKPOINTS,
+      useFactory: CUSTOM_BREAKPOINT_FACTORY
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

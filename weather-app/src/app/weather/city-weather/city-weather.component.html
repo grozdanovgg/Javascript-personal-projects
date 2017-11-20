@@ -1,29 +1,30 @@
-<mat-card-content>
-    <h1 #currentCityName class="text-center">{{weatherService.cityName}}</h1>
-    <div fxLayout="row" fxLayoutAlign="center center">
-        <img class="condition-image" src={{weatherService.conditionIconUrl}} alt="">
-        <h1 class="current-temp">{{weatherService.temperature}}</h1>
-        <h1 class="current-temp-mu">&deg;C</h1>
+<mat-card-content class="card-content" fxLayout.sm="column" fxLayoutAlign.sm="start center" fxLayout="row" fxLayoutAlign="center center">
+    <div class="sub-container" fxLayout="column">
+        <h1 #currentCityName class="text-center">{{weatherService.cityName}}</h1>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <img class="condition-image" src={{weatherService.conditionIconUrl}} alt="">
+            <h1 class="current-temp">{{weatherService.temperature}}</h1>
+            <h1 class="current-temp-mu">&deg;C</h1>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start center">
+            <h2>{{weatherService.conditionText}}</h2>
+            <p>updated on: {{weatherService.localUnixTime * 1000 | date:'HH:mm, EEEE d MMM yyyy'}}</p>
+        </div>
     </div>
-    <div fxLayout="column" fxLayoutAlign="start center">
-        <h2>{{weatherService.conditionText}}</h2>
-        <p>last updated on: {{weatherService.localUnixTime * 1000 | date:'HH:mm, EEEE d MMM yyyy'}}</p>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="space-between">
-        <h3>Feels like:</h3>
-        <h3>{{weatherService.feelsLike}}&deg;</h3>
-    </div>
-    <!-- <div fxLayout="row" fxLayoutAlign="space-between">
-        <h3>Temperature:</h3>
-        <h3>{{weatherService.temperature}}&deg;</h3>
-    </div> -->
-    <div fxLayout="row" fxLayoutAlign="space-between">
-        <h3>Wind speed:</h3>
-        <h3>{{weatherService.windSpeed}}km/h</h3>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="space-between">
-        <h3>Humidity:</h3>
-        <h3>{{weatherService.humidity}}%</h3>
+    <div class="vertical-divider" fxHide.sm="true"></div>
+    <div class="sub-container" fxLayout="column">
+        <div fxLayout="row" fxLayoutAlign="space-between">
+            <h3>Feels like:</h3>
+            <h3>{{weatherService.feelsLike}}&deg;</h3>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between">
+            <h3>Wind speed:</h3>
+            <h3>{{weatherService.windSpeed}}km/h</h3>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between">
+            <h3>Humidity:</h3>
+            <h3>{{weatherService.humidity}}%</h3>
+        </div>
     </div>
 </mat-card-content>
 
