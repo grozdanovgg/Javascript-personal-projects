@@ -1,15 +1,14 @@
-<div class="weather-container">
+<mat-card-content>
   <p>Enter name of a city and press search:</p>
-  <!-- <input type="text" name="location" id="location-input" value={{currentCity}} #locationToSearch2> -->
+
   <button (click)="getCurrentLocationData()" type="button" mat-mini-fab>
     <i class="material-icons">my_location</i>
   </button>
-  <mat-form-field>
-    <input matInput type="text" placeholder="Enter location" value={{currentCity}} #locationToSearch />
-    <button mat-button matSuffix mat-icon-button aria-label="Clear">
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
 
-  <button (click)="goToCity(locationToSearch.value)" type="search" mat-raised-button>Search</button>
-</div>
+  <form (submit)="goToCity(locationToSearch.value)">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Enter location" value={{currentCity}} #locationToSearch/>
+    </mat-form-field>
+    <button type="submit" mat-raised-button>Search</button>
+  </form>
+</mat-card-content>

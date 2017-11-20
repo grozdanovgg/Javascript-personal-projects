@@ -29,11 +29,10 @@ export class WeatherComponent implements OnInit {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
           this.currentPosition = { lat: pos.coords.latitude, long: pos.coords.longitude };
-          console.log(this.currentPosition);
           this.weatherService.getWeatherData(`${this.currentPosition.lat},${this.currentPosition.long}`)
             .subscribe((weatherData) => {
-              // this.weatherData = weatherData;
               this.currentCity = this.weatherService.cityName;
+              this.router.navigate(['/location/' + this.currentCity]);
             },
             err => console.log(err) // Handle err when no Location found;
             );

@@ -1,13 +1,16 @@
-<div #currentCityName>{{weatherService.cityName}}</div>
-<div>
-    <img src={{weatherService.conditionIconUrl}} alt="">
-</div>
-<div>Temperature: {{weatherService.temperature}}&deg;</div>
-<div>Local date and time: {{weatherService.localDateTime}}</div>
-<div>Condition: {{weatherService.conditionText}}</div>
-<div>Feels like: {{weatherService.feelsLike}}&deg;</div>
-<div>Wind speed: {{weatherService.windSpeed}}km/h</div>
-<div>Humidity: {{weatherService.humidity}}%</div>
-<div>
-    <button (click)="goTo48HoursForecast(currentCityName.textContent)" type="button">48 Hours Forecast</button>
-</div>
+<mat-card-content>
+    <div #currentCityName>{{weatherService.cityName}}</div>
+    <div>
+        <img src={{weatherService.conditionIconUrl}} alt="">
+    </div>
+    <div>Temperature: {{weatherService.temperature}}&deg;</div>
+    <div>Local date and time: {{weatherService.localDateTime}}</div>
+    <div>Condition: {{weatherService.conditionText}}</div>
+    <div>Feels like: {{weatherService.feelsLike}}&deg;</div>
+    <div>Wind speed: {{weatherService.windSpeed}}km/h</div>
+    <div>Humidity: {{weatherService.humidity}}%</div>
+</mat-card-content>
+
+<mat-card-actions>
+    <button (click)="goTo48HoursForecast(currentCityName.textContent)" type="button" mat-raised-button>48 Hours Forecast</button>
+</mat-card-actions>

@@ -21,11 +21,10 @@ export class WeatherService {
     '/api/v1/weather/';
 
   public getWeatherData(city): Observable<WeatherDataModelV1> {
-    console.log(`${this.weatherBaseUrl}${city}`);
     return this.http.get(`${this.weatherBaseUrl}${city}`)
       .do((res: { results }) => {
         this.weatherData = res.results;
-        console.log(this.weatherData);
+        // console.log(this.weatherData);
         this.cityName = this.weatherData.location.name;
         this.localDateTime = this.weatherData.location.localtime;
         this.conditionText = this.weatherData.current.condition.text;
@@ -61,7 +60,6 @@ export class WeatherService {
     // Trim array to return only 48 hours of data
     const twoDaysHours = forecastHours.slice(0, 48);
 
-    console.log(twoDaysHours);
     return twoDaysHours;
   }
 

@@ -1,13 +1,15 @@
-<h1>Forecast</h1>
-<div>{{weatherService.cityName}}</div>
-<p>next 48 hours</p>
+<mat-card-content>
+    <h1>Forecast</h1>
+    <div>{{weatherService.cityName}}</div>
+    <p>next 48 hours</p>
 
-<div *ngFor="let hour of weatherService.forecastData">
-    <div>{{hour.time_epoch * 1000 | date:'H:mm'}}</div>
-    <div>{{hour.time_epoch * 1000 | date:'EEEE d MMM'}}</div>
-    <div>{{hour.temp_c}}&deg;</div>
-    <div>{{hour.condition.text}}</div>
-    <div>
-        <img src={{hour.condition.icon}} alt="">
+    <div *ngFor="let hour of weatherService.forecastData">
+        <div>{{hour.time_epoch * 1000 | date:'H:mm'}}</div>
+        <div>{{hour.time_epoch * 1000 | date:'EEEE d MMM'}}</div>
+        <div>{{hour.temp_c}}&deg;</div>
+        <div>{{hour.condition.text}}</div>
+        <div>
+            <img src={{hour.condition.icon}} alt="">
+        </div>
     </div>
-</div>
+</mat-card-content>

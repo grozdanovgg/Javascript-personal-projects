@@ -1,6 +1,10 @@
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-
 /* deeppurple-amber.css
 indigo-pink.css
 pink-bluegrey.css
 purple-green.css */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~https://fonts.googleapis.com/icon?family=Roboto';
+
+body {
+    font-family: Roboto;
+}

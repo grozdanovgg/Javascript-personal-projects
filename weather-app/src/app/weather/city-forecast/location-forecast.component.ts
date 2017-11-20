@@ -20,7 +20,5 @@ export class LocationForecastComponent implements OnInit {
         this.weatherService.getWeatherData(params.name).subscribe();
       });
     }
-    const currentTime = Date.now();
-    console.log(currentTime);
   }
 }
