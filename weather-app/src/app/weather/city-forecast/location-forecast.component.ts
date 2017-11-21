@@ -2,7 +2,7 @@ import { WeatherService } from './../../services/weather.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { WeatherDataModelV1 } from '../../models/weatherDataModelV1';
-import { ObservableMedia } from '@angular/flex-layout';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-location-forecast',
@@ -10,11 +10,11 @@ import { ObservableMedia } from '@angular/flex-layout';
   styleUrls: ['./location-forecast.component.css']
 })
 export class LocationForecastComponent implements OnInit {
+  dataSource = new MatTableDataSource(this.weatherService.forecastData);
   currentLocationName: string;
   constructor(
     private activatedRoute: ActivatedRoute,
     public weatherService: WeatherService,
-    observableMedia: ObservableMedia
   ) { }
 
   ngOnInit() {
@@ -22,8 +22,16 @@ export class LocationForecastComponent implements OnInit {
     // activate the service to get the weatherData
     if (!this.weatherService.weatherData) {
       this.activatedRoute.params.subscribe((params) => {
-        this.weatherService.getWeatherData(params.name).subscribe();
+        this.weatherService.getWeatherData(params.name)
+          .subscribe(() => {
+            this.dataSource = new MatTableDataSource(this.weatherService.forecastData);
+            console.log(this.weatherService.forecastData);
+          });
       });
+    } else {
+      this.dataSource = new MatTableDataSource(this.weatherService.forecastData);
+      console.log(this.weatherService.forecastData);
     }
+
   }
 }

@@ -1,15 +1,28 @@
 <mat-card-content>
-    <h1>Forecast</h1>
-    <div>{{weatherService.cityName}}</div>
-    <p>next 48 hours</p>
+    <mat-table #table [dataSource]="dataSource">
 
-    <div *ngFor="let hour of weatherService.forecastData">
-        <div>{{hour.time_epoch * 1000 | date:'H:mm'}}</div>
-        <div>{{hour.time_epoch * 1000 | date:'EEEE d MMM'}}</div>
-        <div>{{hour.temp_c}}&deg;</div>
-        <div>{{hour.condition.text}}</div>
-        <div>
-            <img src={{hour.condition.icon}} alt="">
-        </div>
-    </div>
+        <!-- dateTime Column -->
+        <ng-container matColumnDef="dateTime">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let hour">
+                <h1>{{hour.time_epoch * 1000 | date:'H:mm'}}</h1>
+                <p>{{hour.time_epoch * 1000 | date:'EEEE d MMM'}}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- forecast Column -->
+        <ng-container matColumnDef="forecast">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let hour">
+                <div fxLayout="row" fxLayoutAlign="end center">
+                    <h1>{{hour.temp_c}}&deg;</h1>
+                    <img src={{hour.condition.icon}} alt="">
+                </div>
+                <div>{{hour.condition.text}}</div>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="['dateTime', 'forecast']"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: ['dateTime', 'forecast'];"></mat-row>
+    </mat-table>
 </mat-card-content>

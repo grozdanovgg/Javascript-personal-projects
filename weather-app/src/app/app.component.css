@@ -1,7 +1,4 @@
-/* #root {
-  max-width: 751px;
+#root {
+  max-width: 1200px;
   margin: auto;
-} */
-.weather-card {
-  /* height: 100%; */
-}  
+}

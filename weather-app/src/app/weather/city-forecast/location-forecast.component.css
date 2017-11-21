@@ -1,0 +1,7 @@
+.mat-header-row {
+    display: none;
+}
+
+.mat-column-forecast {
+    text-align: end;
+}
