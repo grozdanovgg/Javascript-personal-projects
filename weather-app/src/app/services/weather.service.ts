@@ -3,7 +3,7 @@ import { WeatherDataModelV1, Forecast, ForecastDay, HoursData } from './../model
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { MatSnackBar } from '@angular/material';
+import { apiConfig } from '../config/api-config';
 
 @Injectable()
 export class WeatherService {
@@ -20,24 +20,18 @@ export class WeatherService {
   public humidity: number;
 
   private rawForecastData: HoursData[];
-  private weatherBaseUrl = // URL to web api
-    '/api/v1/weather/';
 
   public getWeatherData(city): Observable<WeatherDataModelV1> {
+    const rawData = this.http.get(`${apiConfig.weatherBaseUr}${city}`)
+      .do((res: { results: WeatherDataModelV1 }) => {
 
-    return this.http.get(`${this.weatherBaseUrl}${city}`)
-      .do((res: { results }) => {
+        this.weatherData = res.results;
 
-        // If there is no such location, show error
-        // and return to home
+        // If there is no such location, stop retrieving data
         if (res.results.error) {
-          const errMsg = res.results.error.message;
-          this.router.navigate(['/']);
-          this.openSnackBar(errMsg);
           return null;
         }
 
-        this.weatherData = res.results;
         this.cityName = this.weatherData.location.name;
         this.localDateTime = this.weatherData.location.localtime;
         this.localUnixTime = this.weatherData.location.localtime_epoch;
@@ -51,12 +45,7 @@ export class WeatherService {
         this.rawForecastData = this.extractForecastData(this.weatherData.forecast.forecastday);
         this.forecastData = this.filter48HoursForecastData(this.rawForecastData);
       });
-  }
-
-  private openSnackBar(errMsg) {
-    this.snackBar.open(errMsg, 'Close', {
-      duration: 5000
-    });
+    return rawData;
   }
 
   private extractForecastData(days: ForecastDay[]): HoursData[] {
@@ -83,5 +72,5 @@ export class WeatherService {
     return twoDaysHours;
   }
 
-  constructor(private http: HttpClient, public snackBar: MatSnackBar, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) { }
 }

@@ -21,9 +21,11 @@ export class LocationWeatherComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedRoute.params
-      .subscribe((params) => this.weatherService.getWeatherData(params.name)
-        .subscribe()
-      );
+    if (!this.weatherService.cityName) {
+      this.activatedRoute.params
+        .subscribe((params) => this.weatherService.getWeatherData(params.name)
+          .subscribe()
+        );
+    }
   }
 }

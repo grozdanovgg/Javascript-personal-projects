@@ -2,6 +2,7 @@ export class WeatherDataModelV1 {
     current?: Current;
     forecast?: Forecast;
     location?: Location;
+    error?: Error;
 }
 export class Forecast {
     forecastday: ForecastDay[];
@@ -64,6 +65,10 @@ export class HoursData {
     windchill_f: number;
 }
 
+class Error {
+    message: string;
+    code: number;
+}
 class Location {
     country: string;
     lat: number;

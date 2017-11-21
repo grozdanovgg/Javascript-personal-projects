@@ -1,3 +1,4 @@
+import { ErrorHandlingService } from './services/error-handling.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -62,7 +63,9 @@ const routes: Routes = [
     {
       provide: BREAKPOINTS,
       useFactory: CUSTOM_BREAKPOINT_FACTORY
-    }],
+    },
+    ErrorHandlingService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

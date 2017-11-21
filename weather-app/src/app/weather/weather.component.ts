@@ -1,3 +1,4 @@
+import { ErrorHandlingService } from './../services/error-handling.service';
 import { WeatherDataModelV1 } from './../models/weatherDataModelV1';
 import { WeatherService } from './../services/weather.service';
 import { Component, OnInit } from '@angular/core';
@@ -20,13 +21,26 @@ export class WeatherComponent implements OnInit {
   constructor(
     public weatherService: WeatherService,
     private router: Router,
+    private errorHandlingService: ErrorHandlingService,
   ) { }
 
   ngOnInit() {
   }
 
   public goToCity(selected) {
-    this.router.navigate(['/location/' + selected]);
+    this.weatherService.getWeatherData(selected)
+      .subscribe((res) => {
+        if (this.weatherService.weatherData.error) {
+          const msg: string = this.weatherService.weatherData.error.message;
+          this.errorHandlingService.handleError(msg);
+          this.router.navigate(['/']);
+          return;
+        }
+        this.router.navigate(['/location/' + selected]);
+
+      },
+      err => this.errorHandlingService.handleError('Invalid location')
+      );
   }
   public getCurrentLocationData() {
     if (navigator.geolocation) {
@@ -37,10 +51,10 @@ export class WeatherComponent implements OnInit {
             .subscribe((weatherData) => {
               this.currentCity = this.weatherService.cityName;
             },
-            err => console.log(err) // Handle err when no Location found;
+            err => this.errorHandlingService.handleError(err) // Handle err when no Location found;
             );
         },
-        (err) => console.log(err) // Handle err CAN`T get current location;
+        err => this.errorHandlingService.handleError(err.message, err.code)  // Handle err CAN`T get current location;
       );
     }
   }
