@@ -9,8 +9,9 @@
       </button>
       <mat-form-field>
         <input matInput type="text" placeholder="Enter location" value={{currentCity}} #locationToSearch/>
+        <mat-error></mat-error>
       </mat-form-field>
     </div>
-    <button class="submit" type="submit" mat-raised-button>Search</button>
+    <button [disabled]="!locationToSearch.value" class="submit" type="submit" mat-raised-button>Search</button>
   </form>
 </mat-card-content>

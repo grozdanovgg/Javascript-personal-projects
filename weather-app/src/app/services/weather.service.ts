@@ -1,7 +1,9 @@
+import { Router } from '@angular/router';
 import { WeatherDataModelV1, Forecast, ForecastDay, HoursData } from './../models/weatherDataModelV1';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable()
 export class WeatherService {
@@ -22,9 +24,19 @@ export class WeatherService {
     '/api/v1/weather/';
 
   public getWeatherData(city): Observable<WeatherDataModelV1> {
+
     return this.http.get(`${this.weatherBaseUrl}${city}`)
       .do((res: { results }) => {
-        console.log(res);
+
+        // If there is no such location, show error
+        // and return to home
+        if (res.results.error) {
+          const errMsg = res.results.error.message;
+          this.router.navigate(['/']);
+          this.openSnackBar(errMsg);
+          return null;
+        }
+
         this.weatherData = res.results;
         this.cityName = this.weatherData.location.name;
         this.localDateTime = this.weatherData.location.localtime;
@@ -39,6 +51,12 @@ export class WeatherService {
         this.rawForecastData = this.extractForecastData(this.weatherData.forecast.forecastday);
         this.forecastData = this.filter48HoursForecastData(this.rawForecastData);
       });
+  }
+
+  private openSnackBar(errMsg) {
+    this.snackBar.open(errMsg, 'Close', {
+      duration: 5000
+    });
   }
 
   private extractForecastData(days: ForecastDay[]): HoursData[] {
@@ -65,5 +83,5 @@ export class WeatherService {
     return twoDaysHours;
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, public snackBar: MatSnackBar, private router: Router) { }
 }

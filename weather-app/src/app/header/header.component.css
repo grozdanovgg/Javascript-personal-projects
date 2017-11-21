@@ -1,10 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Monoton');
 
 .logo{
+    color: purple;
     font-family: 'Monoton', cursive;
-}
-a {
-    text-decoration: none;
     text-align: center;
     margin: auto;
 }

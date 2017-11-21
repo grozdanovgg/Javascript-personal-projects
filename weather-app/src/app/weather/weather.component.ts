@@ -17,9 +17,13 @@ export class WeatherComponent implements OnInit {
   currentCity: string;
   private currentPosition: { lat: number, long: number };
 
-  constructor(public weatherService: WeatherService, private router: Router) { }
+  constructor(
+    public weatherService: WeatherService,
+    private router: Router,
+  ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   public goToCity(selected) {
     this.router.navigate(['/location/' + selected]);
