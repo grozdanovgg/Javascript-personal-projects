@@ -13,7 +13,6 @@ h1,h2,h3,p{
 
 .current-temp {
     font-size: 4rem;
-    /* margin: 0 1rem 0 1rem; */
     padding: 0 1rem 0 1rem;
 }
 .condition-image {
@@ -22,7 +21,6 @@ h1,h2,h3,p{
 
 .vertical-divider {
     margin: 0 1rem 0 1rem;
-    /* border-top-width: 1px; */
     border-right-width: 1px;
     border-right-style: solid;
     height: 200px;

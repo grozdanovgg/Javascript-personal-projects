@@ -6,11 +6,11 @@ import 'rxjs/add/operator/do';
 import { Output } from '@angular/core/src/metadata/directives';
 
 @Component({
-  selector: 'app-city-weather',
-  templateUrl: './city-weather.component.html',
-  styleUrls: ['./city-weather.component.css']
+  selector: 'app-location-weather',
+  templateUrl: './location-weather.component.html',
+  styleUrls: ['./location-weather.component.css']
 })
-export class CityWeatherComponent implements OnInit {
+export class LocationWeatherComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
     public weatherService: WeatherService,

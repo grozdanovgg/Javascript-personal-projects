@@ -1,9 +1,10 @@
 const fetch = require('node-fetch')
 const utf8 = require('utf8');
+const weatherConfig = require('../config/weather-config');
 module.exports = () => {
     return {
         getWeatherData(req, res) {
-            const url = `http://api.apixu.com/v1/forecast.json?key=29d83fa2298a47d29bb121845161212&days=3&q=${req.params.city}`;
+            const url = weatherConfig.baseUrl + req.params.city;
             const urlEncoded = utf8.encode(url);
             fetch(urlEncoded)
                 .then((response) => {

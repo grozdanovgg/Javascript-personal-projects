@@ -8,8 +8,8 @@ import { HeaderComponent } from './header/header.component';
 import { WeatherComponent } from './weather/weather.component';
 import { WeatherService } from './services/weather.service';
 import { HttpClientModule } from '@angular/common/http';
-import { CityWeatherComponent } from './weather/city-weather/city-weather.component';
-import { LocationForecastComponent } from './weather/city-forecast/location-forecast.component';
+import { LocationWeatherComponent } from './weather/location-weather/location-weather.component';
+import { LocationForecastComponent } from './weather/location-forecast/location-forecast.component';
 import { Routes, RouterModule } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { UpperCasePipe } from '@angular/common';
@@ -55,8 +55,8 @@ import { CUSTOM_BREAKPOINT_FACTORY } from './custom-breakpoints.component';
 
 const routes: Routes = [
   { path: '', component: WeatherComponent },
-  { path: 'location', component: CityWeatherComponent },
-  { path: 'location/:name', component: CityWeatherComponent },
+  { path: 'location', component: LocationWeatherComponent },
+  { path: 'location/:name', component: LocationWeatherComponent },
   { path: 'location/:name/forecast', component: LocationForecastComponent },
 ];
 
@@ -65,7 +65,7 @@ const routes: Routes = [
     AppComponent,
     HeaderComponent,
     WeatherComponent,
-    CityWeatherComponent,
+    LocationWeatherComponent,
     LocationForecastComponent,
   ],
   imports: [
