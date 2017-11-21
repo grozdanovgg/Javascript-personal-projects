@@ -25,12 +25,10 @@ export class LocationForecastComponent implements OnInit {
         this.weatherService.getWeatherData(params.name)
           .subscribe(() => {
             this.dataSource = new MatTableDataSource(this.weatherService.forecastData);
-            console.log(this.weatherService.forecastData);
           });
       });
     } else {
       this.dataSource = new MatTableDataSource(this.weatherService.forecastData);
-      console.log(this.weatherService.forecastData);
     }
 
   }
