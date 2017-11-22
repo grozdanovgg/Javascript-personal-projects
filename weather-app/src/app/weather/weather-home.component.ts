@@ -9,11 +9,11 @@ import { Response } from '@angular/http';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-weather',
-  templateUrl: './weather.component.html',
-  styleUrls: ['./weather.component.css']
+  selector: 'app-weather-home',
+  templateUrl: './weather-home.component.html',
+  styleUrls: ['./weather-home.component.css']
 })
-export class WeatherComponent implements OnInit {
+export class WeatherHomeComponent implements OnInit {
 
   currentCity: string;
   private currentPosition: { lat: number, long: number };

@@ -19,7 +19,7 @@ import {
 } from '@angular/material';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { WeatherComponent } from './weather/weather.component';
+import { WeatherHomeComponent } from './weather/weather-home.component';
 import { WeatherService } from './services/weather.service';
 import { LocationWeatherComponent } from './weather/location-weather/location-weather.component';
 import { LocationForecastComponent } from './weather/location-forecast/location-forecast.component';
@@ -28,7 +28,7 @@ import { CUSTOM_BREAKPOINT_FACTORY } from './custom-breakpoints.component';
 import { LocationCombinedComponent } from './weather/location-combined/location-combined.component';
 
 const routes: Routes = [
-  { path: '', component: WeatherComponent },
+  { path: '', component: WeatherHomeComponent },
   { path: 'location', component: LocationCombinedComponent },
   { path: 'location/:name', component: LocationCombinedComponent },
   { path: 'location/:name/forecast', component: LocationForecastComponent },
@@ -38,7 +38,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HeaderComponent,
-    WeatherComponent,
+    WeatherHomeComponent,
     LocationWeatherComponent,
     LocationForecastComponent,
     LocationCombinedComponent,
