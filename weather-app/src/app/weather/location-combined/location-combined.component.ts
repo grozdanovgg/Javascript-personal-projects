@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./location-combined.component.css']
 })
 export class LocationCombinedComponent implements OnInit {
-  showForecast: boolean;
+  showForecast = false;
   currentLocationName: string;
   constructor(
     private router: Router,

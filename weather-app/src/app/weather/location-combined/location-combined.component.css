@@ -1,0 +1,33 @@
+h1,h2,h3,p{
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+}
+.text-center{
+    text-align: center;
+}
+
+.desktop-forecast{
+    margin: auto;
+    width: 80%;
+}
+.tabs {
+    margin: auto;    
+    width: 80%;
+}
+
+
+.current-temp {
+    font-size: 4rem;
+    padding: 0 1rem 0 1rem;
+}
+
+.condition-image {
+    padding-top: 1rem;
+}
+
+
+
+/* ::ng-deep .mat-tab-labels{
+    ALTERNATIVE TO CENTER TABS
+justify-content: center; 
+} */

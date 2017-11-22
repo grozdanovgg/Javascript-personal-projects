@@ -1,29 +1,48 @@
+<app-header *ngIf="!showForecast"></app-header>
 <mat-card-content class="card-content" fxLayout="column" fxLayoutAlign="start center">
-  <div class="sub-container" fxLayout="column">
-    <h1 #currentCityName class="text-center">{{weatherService.cityName}}</h1>
-    <div fxLayout="row" fxLayoutAlign="center center">
-      <img class="condition-image" src={{weatherService.conditionIconUrl}} alt="">
-      <h1 class="current-temp">{{weatherService.temperature}}</h1>
-      <h1 class="current-temp-mu">&deg;C</h1>
+
+  <!-- Desktop resolution block -->
+  <div class="desktop-forecast" *ngIf="!showForecast">
+    <div class="sub-container" fxLayout="column">
+      <h1 #currentCityName class="text-center">{{weatherService.cityName}}</h1>
+
+      <!-- Sub header section -->
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <img class="condition-image" src={{weatherService.conditionIconUrl}} alt="">
+        <h1 class="current-temp">{{weatherService.temperature}}</h1>
+        <h1 class="current-temp-mu">&deg;C</h1>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="start center">
+        <h2>{{weatherService.conditionText}}</h2>
+        <p>updated on: {{weatherService.localUnixTime * 1000 | date:'HH:mm, EEEE d MMM yyyy'}}</p>
+      </div>
     </div>
-    <div fxLayout="column" fxLayoutAlign="start center">
-      <h2>{{weatherService.conditionText}}</h2>
-      <p>updated on: {{weatherService.localUnixTime * 1000 | date:'HH:mm, EEEE d MMM yyyy'}}</p>
+
+    <!-- Desktop tabs menu -->
+    <div class="tabs" fxHide.sm *ngIf="!showForecast">
+      <mat-tab-group mat-stretch-tabs>
+        <mat-tab label="Today" class="tab">
+          <app-location-weather></app-location-weather>
+        </mat-tab>
+        <mat-tab label="48 Hours Forecast" class="tab">
+          <app-location-forecast></app-location-forecast>
+        </mat-tab>
+      </mat-tab-group>
     </div>
   </div>
 
-  <div class="tabs" fxHide.sm>
-    <mat-tab-group>
-      <mat-tab label="Tab 1">
-        <app-location-weather></app-location-weather>
-      </mat-tab>
-      <mat-tab label="Tab 2">
-        <app-location-forecast></app-location-forecast>
-      </mat-tab>
-    </mat-tab-group>
+
+  <!-- Phone resolution block -->
+  <div *ngIf="showForecast" class="mobile-forecast">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <h1 class="forecast-title">Forecast</h1>
+      <button *ngIf="showForecast" (click)="showForecast=false" type="button" mat-raised-button>Back</button>
+    </div>
+    <app-location-forecast></app-location-forecast>
   </div>
+
 </mat-card-content>
 
-<mat-card-actions fxLayout="row" fxHide.gt-sm fxLayoutAlign="center center">
-  <button (click)="goTo48HoursForecast(currentCityName.textContent)" type="button" mat-raised-button>48 Hours Forecast</button>
+<mat-card-actions fxHide.gt-sm fxLayout="row" fxLayoutAlign="center center">
+  <button *ngIf="!showForecast" (click)="showForecast=true" type="button" mat-raised-button>48 Hours Forecast</button>
 </mat-card-actions>

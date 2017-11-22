@@ -1,7 +1,6 @@
 import { WeatherService } from './../../services/weather.service';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, Input } from '@angular/core';
-import { WeatherDataModelV1 } from '../../models/weatherDataModelV1';
+import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 
 @Component({
@@ -29,5 +28,4 @@ export class LocationForecastComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.weatherService.forecastData);
     }
   }
-
 }

@@ -1,3 +1,3 @@
 export const apiConfig = {
-    weatherBaseUr: '/api/v1/weather/';
+    weatherBaseUr: '/api/v1/weather/'
 };

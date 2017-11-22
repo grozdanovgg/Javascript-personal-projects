@@ -1,28 +1,25 @@
-<mat-card-content>
-    <mat-table #table [dataSource]="dataSource">
+<mat-table #table [dataSource]="dataSource">
+    <!-- dateTime Column -->
+    <ng-container matColumnDef="dateTime">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let hour" fxLayout="column" fxLayoutAlign="space-between start">
+            <h1>{{hour.time_epoch * 1000 | date:'H:mm'}}</h1>
+            <p>{{hour.time_epoch * 1000 | date:'EEEE d MMM'}}</p>
+        </mat-cell>
+    </ng-container>
 
-        <!-- dateTime Column -->
-        <ng-container matColumnDef="dateTime">
-            <mat-header-cell *matHeaderCellDef></mat-header-cell>
-            <mat-cell *matCellDef="let hour">
-                <h1>{{hour.time_epoch * 1000 | date:'H:mm'}}</h1>
-                <p>{{hour.time_epoch * 1000 | date:'EEEE d MMM'}}</p>
-            </mat-cell>
-        </ng-container>
+    <!-- forecast Column -->
+    <ng-container matColumnDef="forecast">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let hour">
+            <div fxLayout="row" fxLayoutAlign="end end">
+                <h1>{{hour.temp_c}}&deg;</h1>
+                <img src={{hour.condition.icon}} alt="">
+            </div>
+            <p>{{hour.condition.text}}</p>
+        </mat-cell>
+    </ng-container>
 
-        <!-- forecast Column -->
-        <ng-container matColumnDef="forecast">
-            <mat-header-cell *matHeaderCellDef></mat-header-cell>
-            <mat-cell *matCellDef="let hour">
-                <div fxLayout="row" fxLayoutAlign="end center">
-                    <h1>{{hour.temp_c}}&deg;</h1>
-                    <img src={{hour.condition.icon}} alt="">
-                </div>
-                <div>{{hour.condition.text}}</div>
-            </mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="['dateTime', 'forecast']"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: ['dateTime', 'forecast'];"></mat-row>
-    </mat-table>
-</mat-card-content>
+    <mat-header-row *matHeaderRowDef="['dateTime', 'forecast']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['dateTime', 'forecast'];"></mat-row>
+</mat-table>

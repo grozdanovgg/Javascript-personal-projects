@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: '', component: WeatherHomeComponent },
   { path: 'location', component: LocationCombinedComponent },
   { path: 'location/:name', component: LocationCombinedComponent },
-  { path: 'location/:name/forecast', component: LocationForecastComponent },
+  // { path: 'location/:name/forecast', component: LocationForecastComponent },
 ];
 
 @NgModule({
