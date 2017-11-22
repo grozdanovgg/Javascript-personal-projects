@@ -1,0 +1,29 @@
+<mat-card-content class="card-content" fxLayout="column" fxLayoutAlign="start center">
+  <div class="sub-container" fxLayout="column">
+    <h1 #currentCityName class="text-center">{{weatherService.cityName}}</h1>
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <img class="condition-image" src={{weatherService.conditionIconUrl}} alt="">
+      <h1 class="current-temp">{{weatherService.temperature}}</h1>
+      <h1 class="current-temp-mu">&deg;C</h1>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="start center">
+      <h2>{{weatherService.conditionText}}</h2>
+      <p>updated on: {{weatherService.localUnixTime * 1000 | date:'HH:mm, EEEE d MMM yyyy'}}</p>
+    </div>
+  </div>
+
+  <div class="tabs" fxHide.sm>
+    <mat-tab-group>
+      <mat-tab label="Tab 1">
+        <app-location-weather></app-location-weather>
+      </mat-tab>
+      <mat-tab label="Tab 2">
+        <app-location-forecast></app-location-forecast>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</mat-card-content>
+
+<mat-card-actions fxLayout="row" fxHide.gt-sm fxLayoutAlign="center center">
+  <button (click)="goTo48HoursForecast(currentCityName.textContent)" type="button" mat-raised-button>48 Hours Forecast</button>
+</mat-card-actions>

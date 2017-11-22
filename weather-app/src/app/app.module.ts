@@ -15,6 +15,7 @@ import {
   MatNativeDateModule,
   MatSnackBarModule,
   MatTableModule,
+  MatTabsModule,
 } from '@angular/material';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -24,11 +25,12 @@ import { LocationWeatherComponent } from './weather/location-weather/location-we
 import { LocationForecastComponent } from './weather/location-forecast/location-forecast.component';
 import { FlexLayoutModule, BREAKPOINTS } from '@angular/flex-layout';
 import { CUSTOM_BREAKPOINT_FACTORY } from './custom-breakpoints.component';
+import { LocationCombinedComponent } from './weather/location-combined/location-combined.component';
 
 const routes: Routes = [
   { path: '', component: WeatherComponent },
-  { path: 'location', component: LocationWeatherComponent },
-  { path: 'location/:name', component: LocationWeatherComponent },
+  { path: 'location', component: LocationCombinedComponent },
+  { path: 'location/:name', component: LocationCombinedComponent },
   { path: 'location/:name/forecast', component: LocationForecastComponent },
 ];
 
@@ -39,6 +41,7 @@ const routes: Routes = [
     WeatherComponent,
     LocationWeatherComponent,
     LocationForecastComponent,
+    LocationCombinedComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +58,7 @@ const routes: Routes = [
     MatNativeDateModule,
     MatSnackBarModule,
     MatTableModule,
+    MatTabsModule,
   ],
   providers: [
     WeatherService,

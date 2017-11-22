@@ -3,6 +3,7 @@ import { validateSuffixes } from '@angular/flex-layout';
 
 const CUSTOM = {
     'sm': 'screen and (max-width: 766px)',
+    'gt-sm': 'screen and (min-width: 767px)',
 };
 
 function updateMediaQuery(it: BreakPoint) {

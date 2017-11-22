@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { apiConfig } from '../config/api-config';
+import 'rxjs/add/operator/do';
 
 @Injectable()
 export class WeatherService {
