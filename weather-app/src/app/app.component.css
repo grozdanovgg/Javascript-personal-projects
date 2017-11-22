@@ -2,3 +2,6 @@
   max-width: 1200px;
   margin: auto;
 }
+.weather-card{
+  padding-top: 2rem;
+}
